@@ -6,9 +6,57 @@ import Image from "next/image";
 import myimage from "@/assets/image/vatsalPhoto.png";
 import { SparklesCore } from "@/components/ui/sparkles";
 
+import react from "@/assets/image/react.png";
+import next from "@/assets/image/next-js.svg";
+import tailwind from "@/assets/image/tailwind.png";
+import redux from "@/assets/image/redux.png";
+import javascript from "@/assets/image/JavaScript-logo.png";
+import typescript from "@/assets/image/Typescript_logo_2020.svg";
+import github from "@/assets/image/github.png";
+
+const floatingSkills = [
+  {
+    src: react,
+    alt: "React",
+    position: "top-20 left-6 md:left-16",
+    drift: -14,
+  },
+  {
+    src: next,
+    alt: "Next.js",
+    position: "top-10 right-10 md:right-24",
+    drift: -20,
+  },
+  {
+    src: tailwind,
+    alt: "Tailwind CSS",
+    position: "top-1/2 left-4 md:left-24",
+    drift: 16,
+  },
+  {
+    src: typescript,
+    alt: "TypeScript",
+    position: "bottom-24 left-10 md:left-40",
+    drift: -12,
+  },
+  {
+    src: redux,
+    alt: "Redux",
+    position: "bottom-16 right-6 md:right-28",
+    drift: 18,
+  },
+  {
+    src: javascript,
+    alt: "JavaScript",
+    position: "top-1/3 right-4 md:right-32",
+    drift: -10,
+  },
+  { src: github, alt: "GitHub", position: "top-1/2 right-1/3", drift: 14 },
+];
+
 export default function Hero() {
   return (
-    <section className="min-h-screen relative flex items-center justify-center relative overflow-hidden pt-20">
+    <section className="min-h-screen relative flex items-center justify-center overflow-hidden pt-20">
       <SparklesCore
         id="tsparticlesfullpage"
         background="transparent"
@@ -22,6 +70,31 @@ export default function Hero() {
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[100px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 rounded-full blur-[100px]" />
+      </div>
+
+      {/* Floating Skill Badges */}
+      <div className="pointer-events-none absolute inset-0">
+        {floatingSkills.map((skill, index) => (
+          <motion.div
+            key={skill.alt}
+            className={`absolute ${skill.position}`}
+            animate={{ y: [0, skill.drift, 0] }}
+            transition={{
+              duration: 4 + index * 0.3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
+              <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/40 to-secondary/40 opacity-30" />
+              <Image
+                src={skill.src}
+                alt={skill.alt}
+                className="relative h-9 w-9 object-contain"
+              />
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       <div className="container mx-auto px-6 text-center">
@@ -43,7 +116,7 @@ export default function Hero() {
               whileHover={{ scale: 1.05 }}
               className="relative w-full h-full"
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-secondary blur-2xl opacity-30" />
+              <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary to-secondary blur-2xl opacity-30" />
               <Image
                 src={myimage}
                 alt="Vatsal Vaishnav"
@@ -54,12 +127,12 @@ export default function Hero() {
           </motion.div>
 
           <h2 className="text-xl md:text-2xl text-primary font-medium mb-4">
-            Hi, I'm Vatsal Vaishnav
+            Hi, I&apos;m Vatsal Vaishnav
           </h2>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
             Frontend{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
               Developer
             </span>
           </h1>
