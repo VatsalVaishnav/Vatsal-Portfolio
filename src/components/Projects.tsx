@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
 
 const projects = [
   {
@@ -62,47 +63,56 @@ const projects = [
 ];
 
 export default function Projects() {
-  return (
-    <section id="vatsalprojects" className="py-20 bg-black/50">
-      <div className="container mx-auto px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-center mb-16 neon-text"
-        >
-          Featured Projects
-        </motion.h2>
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
+
+  return (
+    <section ref={targetRef} id="projects" className="relative h-[300vh]">
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-black/50">
+        {/* Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+          <div className="absolute top-[20%] left-[10%] w-[30%] h-[30%] bg-primary/10 rounded-full blur-[100px]" />
+          <div className="absolute bottom-[20%] right-[10%] w-[30%] h-[30%] bg-secondary/10 rounded-full blur-[100px]" />
+        </div>
+
+        <div className="absolute top-10 left-0 w-full text-center z-10">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-5xl font-bold neon-text"
+          >
+            Featured Projects
+          </motion.h2>
+        </div>
+
+        <motion.div style={{ x }} className="flex gap-8 px-10 md:px-20">
+          {projects.map((project) => (
+            <div
               key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="glass rounded-xl overflow-hidden hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all duration-300 group"
+              className="group relative h-[450px] w-[350px] md:h-[500px] md:w-[400px] shrink-0 overflow-hidden rounded-2xl glass hover:border-primary/50 transition-colors duration-500"
             >
               <div
-                className={`h-48 w-full ${project.image} relative overflow-hidden`}
-              >
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300" />
-              </div>
+                className={`absolute inset-0 h-full w-full ${project.image} transition-transform duration-500 group-hover:scale-110 opacity-20 group-hover:opacity-30`}
+              />
 
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2">
+              <div className="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black via-black/80 to-transparent">
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors duration-300">
                   {project.title}
                 </h3>
-                <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+                <p className="text-gray-300 mb-6 line-clamp-3">
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-2 mb-8">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-xs px-2 py-1 bg-white/5 rounded text-primary"
+                      className="text-xs px-3 py-1 bg-white/10 border border-white/10 rounded-full text-primary-200"
                     >
                       {t}
                     </span>
@@ -112,22 +122,23 @@ export default function Projects() {
                 <div className="flex gap-4">
                   <Link
                     href={project.live}
-                    className="flex items-center gap-2 text-sm font-medium text-white hover:text-primary transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-blue-600 text-white rounded-lg font-medium transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
                   >
-                    <ExternalLink size={16} /> Live Demo
+                    <ExternalLink size={18} /> Live Demo
                   </Link>
                   <Link
                     href={project.github}
-                    className="flex items-center gap-2 text-sm font-medium text-white hover:text-primary transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 glass hover:bg-white/10 text-white rounded-lg font-medium transition-all duration-300"
                   >
-                    <Github size={16} /> GitHub
+                    <Github size={18} /> GitHub
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+
