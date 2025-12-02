@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
 
 const experiences = [
   {
@@ -28,40 +29,91 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 relative">
+    <section id="experience" className="py-24 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 -z-10">
+        <DottedGlowBackground
+          className="pointer-events-none opacity-40"
+          gap={14}
+          radius={1.2}
+          colorDarkVar="--glass-border"
+          glowColorDarkVar="--primary-glow"
+          backgroundOpacity={0.1}
+          speedMin={0.2}
+          speedMax={1}
+          speedScale={0.8}
+        />
+        <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[100px]" />
+      </div>
+
       <div className="container mx-auto px-6">
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-center mb-16 neon-text"
+          className="text-center mb-20"
         >
-          Experience
-        </motion.h2>
+          <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-gray-300 mb-4 backdrop-blur-md">
+            Career Path
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white tracking-tight">
+            Professional Experience
+          </h2>
+          <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-lg">
+            A timeline of my professional journey and the key roles that have shaped my expertise.
+          </p>
+        </motion.div>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="relative pl-8 pb-12 border-l border-glass-border last:pb-0"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              className="relative pl-8 md:pl-0 group"
             >
-              <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_10px_var(--primary)]" />
+              {/* Timeline Line */}
+              <div className="hidden md:block absolute left-[50%] top-0 bottom-0 w-0.5 bg-linear-to-b from-transparent via-primary/30 to-transparent -translate-x-1/2 group-last:bottom-auto group-last:h-full shadow-[0_0_10px_rgba(59,130,246,0.2)]" />
 
-              <div className="glass p-6 rounded-xl hover:bg-white/5 transition-colors duration-300">
-                <h3 className="text-xl font-bold text-white mb-1">
-                  {exp.role}
-                </h3>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-primary font-medium">
-                    {exp.company}
-                  </span>
-                  <span className="text-sm text-gray-400">{exp.period}</span>
+              {/* Mobile Timeline Line */}
+              <div className="md:hidden absolute left-[11px] top-0 bottom-0 w-0.5 bg-linear-to-b from-primary/30 to-primary/5 group-last:bottom-auto group-last:h-full" />
+
+              <div className={`md:flex items-center justify-between gap-10 ${index % 2 === 0 ? 'flex-row-reverse' : ''}`}>
+
+                {/* Timeline Dot */}
+                <div className="absolute left-0 md:left-1/2 w-6 h-6 rounded-full border-4 border-[#0a0a0a] bg-primary shadow-[0_0_20px_var(--primary)] z-10 -translate-x-[1.5px] md:-translate-x-1/2 mt-1.5 md:mt-0 group-hover:scale-125 transition-transform duration-300" />
+
+                {/* Content Card */}
+                <div className="w-full md:w-[calc(50%-2.5rem)] mb-12 md:mb-0">
+                  <motion.div
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    className="relative p-1 rounded-2xl bg-linear-to-br from-white/10 to-white/0 hover:from-primary/40 hover:to-secondary/40 transition-all duration-500 group-hover:shadow-[0_10px_40px_rgba(0,0,0,0.4)]"
+                  >
+                    <div className="relative p-6 rounded-xl bg-[#0a0a0a]/90 backdrop-blur-xl h-full">
+                      <div className="flex flex-col gap-2 mb-4">
+                        <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors duration-300">
+                          {exp.role}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                          <span className="text-gray-300 font-medium">
+                            {exp.company}
+                          </span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
+                          <span className="text-gray-400 font-mono text-xs tracking-wide uppercase border border-white/10 px-2 py-0.5 rounded-full bg-white/5">{exp.period}</span>
+                        </div>
+                      </div>
+                      <p className="text-gray-400 leading-relaxed text-sm md:text-base group-hover:text-gray-300 transition-colors duration-300">
+                        {exp.description}
+                      </p>
+                    </div>
+                  </motion.div>
                 </div>
-                <p className="text-gray-300">{exp.description}</p>
+
+                {/* Empty space for the other side of the timeline */}
+                <div className="hidden md:block w-[calc(50%-2.5rem)]" />
               </div>
             </motion.div>
           ))}
