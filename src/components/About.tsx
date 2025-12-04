@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 
 
