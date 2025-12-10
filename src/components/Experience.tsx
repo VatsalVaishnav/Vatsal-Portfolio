@@ -2,28 +2,47 @@
 
 import { motion } from "framer-motion";
 import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
+import { Briefcase, Calendar, MapPin, ArrowRight } from "lucide-react";
 
 const experiences = [
   {
     role: "Senior Frontend Developer",
     company: "Tech Solutions Inc.",
     period: "2023 - Present",
+    location: "Remote",
     description:
       "Leading the frontend team in building scalable web applications using Next.js and React.",
+    achievements: [
+      "Led a team of 5 developers",
+      "Improved app performance by 40%",
+      "Implemented modern design systems",
+    ],
   },
   {
     role: "Frontend Developer",
     company: "Digital Agency",
     period: "2021 - 2023",
+    location: "New York, NY",
     description:
       "Developed responsive websites and landing pages for various clients using modern web technologies.",
+    achievements: [
+      "Delivered 20+ client projects",
+      "Reduced load time by 50%",
+      "Achieved 95% client satisfaction",
+    ],
   },
   {
     role: "Junior Web Developer",
     company: "StartUp Hub",
     period: "2020 - 2021",
+    location: "San Francisco, CA",
     description:
       "Assisted in the development of the company's main product and maintained legacy code.",
+    achievements: [
+      "Fixed 100+ bugs",
+      "Improved code quality",
+      "Learned modern frameworks",
+    ],
   },
 ];
 
@@ -52,71 +71,151 @@ export default function Experience() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-gray-300 mb-4 backdrop-blur-md">
-            Career Path
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white tracking-tight">
-            Professional Experience
-          </h2>
-          <p className="mt-4 text-gray-400 max-w-2xl mx-auto text-lg">
-            A timeline of my professional journey and the key roles that have shaped my expertise.
-          </p>
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-linear-to-r from-white/10 to-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gray-300 mb-6 backdrop-blur-md shadow-lg"
+          >
+            <Briefcase className="w-3 h-3" />
+            Career Journey
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4"
+          >
+            Professional{" "}
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-secondary to-primary">
+              Experience
+            </span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-4 text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed"
+          >
+            A journey through my professional growth and the impactful roles that shaped my expertise.
+          </motion.p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="relative pl-8 md:pl-0 group"
-            >
-              {/* Timeline Line */}
-              <div className="hidden md:block absolute left-[50%] top-0 bottom-0 w-0.5 bg-linear-to-b from-transparent via-primary/30 to-transparent -translate-x-1/2 group-last:bottom-auto group-last:h-full shadow-[0_0_10px_rgba(59,130,246,0.2)]" />
-
-              {/* Mobile Timeline Line */}
-              <div className="md:hidden absolute left-[11px] top-0 bottom-0 w-0.5 bg-linear-to-b from-primary/30 to-primary/5 group-last:bottom-auto group-last:h-full" />
-
-              <div className={`md:flex items-center justify-between gap-10 ${index % 2 === 0 ? 'flex-row-reverse' : ''}`}>
-
-                {/* Timeline Dot */}
-                <div className="absolute left-0 md:left-1/2 w-6 h-6 rounded-full border-4 border-[#0a0a0a] bg-primary shadow-[0_0_20px_var(--primary)] z-10 -translate-x-[1.5px] md:-translate-x-1/2 mt-1.5 md:mt-0 group-hover:scale-125 transition-transform duration-300" />
-
-                {/* Content Card */}
-                <div className="w-full md:w-[calc(50%-2.5rem)] mb-12 md:mb-0">
-                  <motion.div
-                    whileHover={{ y: -5, scale: 1.02 }}
-                    className="relative p-1 rounded-2xl bg-linear-to-br from-white/10 to-white/0 hover:from-primary/40 hover:to-secondary/40 transition-all duration-500 group-hover:shadow-[0_10px_40px_rgba(0,0,0,0.4)]"
-                  >
-                    <div className="relative p-6 rounded-xl bg-[#0a0a0a]/90 backdrop-blur-xl h-full">
-                      <div className="flex flex-col gap-2 mb-4">
-                        <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors duration-300">
-                          {exp.role}
-                        </h3>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                          <span className="text-gray-300 font-medium">
-                            {exp.company}
-                          </span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-                          <span className="text-gray-400 font-mono text-xs tracking-wide uppercase border border-white/10 px-2 py-0.5 rounded-full bg-white/5">{exp.period}</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid gap-6 md:gap-8">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ delay: index * 0.15, duration: 0.6, ease: "easeOut" }}
+                className="group relative"
+              >
+                {/* Card Container */}
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(59,130,246,0.2)]">
+                  {/* Gradient Overlay on Hover */}
+                  <div className="absolute inset-0 bg-linear-to-r from-primary/0 via-primary/5 to-secondary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Content */}
+                  <div className="relative p-6 md:p-8">
+                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+                      {/* Left Section */}
+                      <div className="flex-1">
+                        <div className="flex items-start gap-4 mb-4">
+                          {/* Icon Badge */}
+                          <motion.div
+                            initial={{ scale: 0, rotate: -180 }}
+                            whileInView={{ scale: 1, rotate: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.15 + 0.2, type: "spring", stiffness: 200 }}
+                            className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300"
+                          >
+                            <Briefcase className="w-7 h-7 text-primary" />
+                          </motion.div>
+                          
+                          {/* Title Section */}
+                          <div className="flex-1">
+                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
+                              {exp.role}
+                            </h3>
+                            <div className="flex flex-wrap items-center gap-3 text-sm">
+                              <span className="text-gray-300 font-semibold flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                {exp.company}
+                              </span>
+                              <span className="text-gray-500">•</span>
+                              <span className="text-gray-400 flex items-center gap-1.5">
+                                <MapPin className="w-4 h-4" />
+                                {exp.location}
+                              </span>
+                            </div>
+                          </div>
                         </div>
+                        
+                        {/* Description */}
+                        <p className="text-gray-400 leading-relaxed text-base mb-6 group-hover:text-gray-300 transition-colors duration-300">
+                          {exp.description}
+                        </p>
                       </div>
-                      <p className="text-gray-400 leading-relaxed text-sm md:text-base group-hover:text-gray-300 transition-colors duration-300">
-                        {exp.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                </div>
 
-                {/* Empty space for the other side of the timeline */}
-                <div className="hidden md:block w-[calc(50%-2.5rem)]" />
-              </div>
-            </motion.div>
-          ))}
+                      {/* Right Section - Period Badge */}
+                      <div className="shrink-0">
+                        <motion.div
+                          initial={{ opacity: 0, x: 20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.15 + 0.3 }}
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-primary/10 to-secondary/10 border border-primary/20 backdrop-blur-sm group-hover:border-primary/40 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300"
+                        >
+                          <Calendar className="w-4 h-4 text-primary" />
+                          <span className="text-gray-300 font-mono text-sm font-semibold">
+                            {exp.period}
+                          </span>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Achievements Section */}
+                    <div className="pt-6 border-t border-white/10 group-hover:border-primary/20 transition-colors duration-300">
+                      <div className="flex items-center gap-2 mb-4">
+                        <ArrowRight className="w-4 h-4 text-primary" />
+                        <span className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
+                          Key Achievements
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        {exp.achievements.map((achievement, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.15 + 0.4 + idx * 0.1 }}
+                            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/5 group-hover:bg-primary/5 group-hover:border-primary/20 transition-all duration-300"
+                          >
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                            <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                              {achievement}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-primary/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-secondary/10 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
