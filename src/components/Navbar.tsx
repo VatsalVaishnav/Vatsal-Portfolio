@@ -31,7 +31,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold neon-text">
+        <Link href="/" className="text-2xl font-bold got-text">
           Vatsal<span className="text-primary">.</span>
         </Link>
 
@@ -41,7 +41,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-gray-300 hover:text-primary transition-colors duration-300"
+              className="text-gray-300 hover:text-primary transition-colors duration-300 font-semibold tracking-wide uppercase text-sm"
             >
               {link.name}
             </Link>
@@ -69,7 +69,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-gray-300 hover:text-primary text-lg"
+                className="text-gray-300 hover:text-primary text-lg font-semibold tracking-wide uppercase"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}

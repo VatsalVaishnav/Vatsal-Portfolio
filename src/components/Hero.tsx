@@ -65,12 +65,13 @@ export default function Hero() {
                 maxSize={1.4}
                 particleDensity={100}
                 className="w-full h-full absolute"
-                particleColor="#FFFFFF"
+                particleColor="#D4AF37"
             />
             {/* Background Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[100px]" />
                 <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 rounded-full blur-[100px]" />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-red-dark/10 rounded-full blur-[150px]" />
             </div>
 
             {/* Floating Skill Badges */}
@@ -86,8 +87,8 @@ export default function Hero() {
                             ease: "easeInOut",
                         }}
                     >
-                        <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
-                            <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/40 to-secondary/40 opacity-30" />
+                        <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-gold/30 bg-black/40 backdrop-blur-xl shadow-[0_10px_40px_rgba(212,175,55,0.3)]">
+                            <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/40 to-gold-dark/40 opacity-30" />
                             <Image
                                 src={skill.src}
                                 alt={skill.alt}
@@ -117,27 +118,27 @@ export default function Hero() {
                             whileHover={{ scale: 1.05 }}
                             className="relative w-full h-full"
                         >
-                            <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary to-secondary blur-2xl opacity-30" />
+                            <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary via-gold-dark to-secondary blur-2xl opacity-30" />
                             <Image
                                 src={myimage}
                                 alt="Vatsal Vaishnav"
-                                className="relative w-full h-full rounded-full border-2 border-primary/30 object-cover shadow-2xl"
+                                className="relative w-full h-full rounded-full border-4 border-gold/50 object-cover shadow-2xl shadow-gold/50"
                                 priority
                             />
                         </motion.div>
                     </motion.div>
 
-                    <h2 className="text-xl md:text-2xl text-primary font-medium mb-4">
+                    <h2 className="text-xl md:text-2xl text-primary font-medium mb-4 got-text">
                         Hi, I&apos;m Vatsal Vaishnav
                     </h2>
 
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight got-text">
                         Frontend{" "}
-                        <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-gold-light to-secondary">
                             Developer
                         </span>
                     </h1>
-                    <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+                    <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-medium tracking-wide">
                         I build fast, modern, responsive web experiences with a focus on
                         clean code and user-centric design.
                     </p>
@@ -145,13 +146,13 @@ export default function Hero() {
                     <div className="flex flex-col md:flex-row gap-4 justify-center">
                         <Link
                             href="#projects"
-                            className="px-8 py-3 bg-primary hover:bg-blue-600 text-white rounded-full font-medium transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)]"
+                            className="px-8 py-3 bg-linear-to-r from-primary to-gold-dark hover:from-gold-dark hover:to-primary text-black rounded-full font-bold transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.5)] hover:shadow-[0_0_30px_rgba(212,175,55,0.7)] uppercase tracking-wide"
                         >
                             View Projects
                         </Link>
                         <Link
                             href="#contact"
-                            className="px-8 py-3 glass hover:bg-white/10 text-white rounded-full font-medium transition-all duration-300"
+                            className="px-8 py-3 glass hover:bg-gold/10 text-gold rounded-full font-bold transition-all duration-300 border border-gold/30 hover:border-gold uppercase tracking-wide"
                         >
                             Hire Me
                         </Link>

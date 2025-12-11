@@ -68,7 +68,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:border-white/30 hover:shadow-[0_6px_30px_rgba(255,255,255,0.15)] transition-all duration-300 mb-6"
+            className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-linear-to-r from-gold/20 via-gold/10 to-gold/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold backdrop-blur-sm shadow-[0_4px_20px_rgba(212,175,55,0.2)] hover:border-gold/50 hover:shadow-[0_6px_30px_rgba(212,175,55,0.3)] transition-all duration-300 mb-6"
           >
             <Send className="w-3 h-3" />
             Get in Touch
@@ -78,10 +78,10 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4 got-text"
           >
             Let&apos;s{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-secondary to-primary">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-gold via-gold-dark to-red-dark">
               Work Together
             </span>
           </motion.h2>
@@ -118,7 +118,7 @@ export default function Contact() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 + 0.3 }}
                     whileHover={{ y: -5, scale: 1.02 }}
-                    className="group relative block overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(59,130,246,0.2)]"
+                    className="group relative block overflow-hidden rounded-2xl border border-gold/20 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl transition-all duration-500 hover:border-gold/40 hover:shadow-[0_20px_60px_rgba(212,175,55,0.3)]"
                   >
                     {/* Gradient Overlay */}
                     <div className={`absolute inset-0 bg-linear-to-br ${method.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
@@ -128,22 +128,22 @@ export default function Contact() {
                       <motion.div
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.6 }}
-                        className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300"
+                        className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-gold/20 to-gold-dark/20 border border-gold/40 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all duration-300"
                       >
-                        <Icon className="w-7 h-7 text-primary" />
+                        <Icon className="w-7 h-7 text-gold" />
                       </motion.div>
                       
                       {/* Content */}
                       <div className="flex-1">
-                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
+                        <p className="text-xs font-bold text-gold/70 uppercase tracking-wider mb-1">
                           {method.label}
                         </p>
-                        <p className="text-lg font-semibold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
+                        <p className="text-lg font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-gold group-hover:to-gold-dark transition-all duration-300 got-text">
                           {method.value}
                         </p>
                       </div>
                       
-                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" />
+                      <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-gold group-hover:translate-x-1 transition-all duration-300" />
                     </div>
                   </motion.a>
                 );
@@ -156,10 +156,10 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
-              className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl p-6"
+              className="relative overflow-hidden rounded-2xl border border-gold/20 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl p-6"
             >
-              <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <span className="w-1 h-4 bg-linear-to-b from-primary to-secondary rounded-full" />
+              <h4 className="text-sm font-bold text-gold uppercase tracking-wider mb-4 flex items-center gap-2 got-text">
+                <span className="w-1 h-4 bg-linear-to-b from-gold to-gold-dark rounded-full" />
                 Connect With Me
               </h4>
               <div className="flex gap-3">
@@ -175,11 +175,11 @@ export default function Contact() {
                     >
                       <Link
                         href={social.href}
-                        className={`group relative flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-gray-400 transition-all duration-300 hover:border-primary/50 hover:text-white ${social.color} hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]`}
+                        className={`group relative flex items-center justify-center w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 text-gold transition-all duration-300 hover:border-gold/50 hover:text-gold-light ${social.color} hover:shadow-[0_0_20px_rgba(212,175,55,0.5)]`}
                         aria-label={social.label}
                       >
                         <Icon className="w-5 h-5 relative z-10" />
-                        <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                        <div className="absolute inset-0 bg-linear-to-br from-gold/20 to-gold-dark/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
                       </Link>
                     </motion.div>
                   );
@@ -196,19 +196,19 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
           >
             <form
-              className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl p-8 md:p-10"
+              className="relative overflow-hidden rounded-2xl border border-gold/20 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl p-8 md:p-10"
               onSubmit={(e) => e.preventDefault()}
             >
               {/* Decorative Elements */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-primary/10 to-transparent rounded-bl-full opacity-50 blur-2xl" />
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-secondary/10 to-transparent rounded-tr-full opacity-50 blur-xl" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-gold/10 to-transparent rounded-bl-full opacity-50 blur-2xl" />
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-red-dark/10 to-transparent rounded-tr-full opacity-50 blur-xl" />
 
               <div className="relative space-y-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center">
-                    <MessageSquare className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded-xl bg-linear-to-br from-gold/20 to-gold-dark/20 border border-gold/40 flex items-center justify-center">
+                    <MessageSquare className="w-5 h-5 text-gold" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Send a Message</h3>
+                  <h3 className="text-2xl font-bold text-gold got-text">Send a Message</h3>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -219,7 +219,7 @@ export default function Contact() {
                     transition={{ delay: 0.3 }}
                     className="space-y-2"
                   >
-                    <label htmlFor="name" className="text-sm font-semibold text-gray-400 ml-1 flex items-center gap-2">
+                    <label htmlFor="name" className="text-sm font-bold text-gold/80 ml-1 flex items-center gap-2 uppercase tracking-wide">
                       <User className="w-4 h-4" />
                       Name
                     </label>
@@ -227,7 +227,7 @@ export default function Contact() {
                       <input
                         type="text"
                         id="name"
-                        className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 focus:shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                        className="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-gold/20 focus:border-gold focus:bg-gold/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 focus:shadow-[0_0_20px_rgba(212,175,55,0.3)] font-medium"
                         placeholder="Your name"
                       />
                     </div>
@@ -240,7 +240,7 @@ export default function Contact() {
                     transition={{ delay: 0.4 }}
                     className="space-y-2"
                   >
-                    <label htmlFor="email" className="text-sm font-semibold text-gray-400 ml-1 flex items-center gap-2">
+                    <label htmlFor="email" className="text-sm font-bold text-gold/80 ml-1 flex items-center gap-2 uppercase tracking-wide">
                       <Mail className="w-4 h-4" />
                       Email
                     </label>
@@ -248,7 +248,7 @@ export default function Contact() {
                       <input
                         type="email"
                         id="email"
-                        className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 focus:shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                        className="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-gold/20 focus:border-gold focus:bg-gold/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 focus:shadow-[0_0_20px_rgba(212,175,55,0.3)] font-medium"
                         placeholder="your.email@example.com"
                       />
                     </div>
@@ -262,7 +262,7 @@ export default function Contact() {
                   transition={{ delay: 0.5 }}
                   className="space-y-2"
                 >
-                  <label htmlFor="message" className="text-sm font-semibold text-gray-400 ml-1 flex items-center gap-2">
+                  <label htmlFor="message" className="text-sm font-bold text-gold/80 ml-1 flex items-center gap-2 uppercase tracking-wide">
                     <MessageSquare className="w-4 h-4" />
                     Message
                   </label>
@@ -270,7 +270,7 @@ export default function Contact() {
                     <textarea
                       id="message"
                       rows={5}
-                      className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 resize-none focus:shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                      className="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-gold/20 focus:border-gold focus:bg-gold/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 resize-none focus:shadow-[0_0_20px_rgba(212,175,55,0.3)] font-medium"
                       placeholder="Tell me about your project or just say hello..."
                     />
                   </div>
@@ -284,7 +284,7 @@ export default function Contact() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="w-full py-4 bg-linear-to-r from-primary to-secondary hover:from-blue-600 hover:to-pink-600 text-white rounded-xl font-semibold transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] flex items-center justify-center gap-2 group"
+                  className="w-full py-4 bg-linear-to-r from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-black rounded-xl font-bold transition-all duration-300 shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:shadow-[0_0_40px_rgba(212,175,55,0.6)] flex items-center justify-center gap-2 group uppercase tracking-wide"
                 >
                   <span>Send Message</span>
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
