@@ -80,14 +80,26 @@ export default function Projects() {
         </div>
 
         <div className="absolute top-10 left-0 w-full text-center z-10">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold neon-text"
+            transition={{ duration: 0.6 }}
+            className="space-y-4"
           >
-            Featured Projects
-          </motion.h2>
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="inline-flex items-center rounded-full border border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:border-white/30 hover:shadow-[0_6px_30px_rgba(255,255,255,0.15)] transition-all duration-300"
+            >
+              Projects
+            </motion.span>
+            <h2 className="text-3xl md:text-5xl font-bold neon-text">
+              Featured Projects
+            </h2>
+          </motion.div>
         </div>
 
         <motion.div style={{ x }} className="flex gap-8 px-10 md:px-20">

@@ -78,7 +78,8 @@ export default function Experience() {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-linear-to-r from-white/10 to-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gray-300 mb-6 backdrop-blur-md shadow-lg"
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:border-white/30 hover:shadow-[0_6px_30px_rgba(255,255,255,0.15)] transition-all duration-300 mb-6"
           >
             <Briefcase className="w-3 h-3" />
             Career Journey

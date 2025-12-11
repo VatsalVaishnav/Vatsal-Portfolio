@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
+
 
 
 const stats = [
@@ -23,20 +23,10 @@ export default function About() {
   return (
     <section id="about" className="relative py-24">
       <div className="container mx-auto px-6">
-        <CardSpotlight >
+        
           <div className="relative overflow-hidden rounded-3xl border border-white/5 bg-linear-to-br from-white/10 via-white/5 to-white/0 px-8 py-12 md:px-12">
-            <DottedGlowBackground
-              className="pointer-events-none opacity-60"
-              gap={14}
-              radius={1.2}
-              colorDarkVar="--glass-border"
-              glowColorDarkVar="--primary-glow"
-              backgroundOpacity={0.15}
-              speedMin={0.2}
-              speedMax={1}
-              speedScale={0.8}
-            />
-
+          
+          
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -46,9 +36,15 @@ export default function About() {
             >
               <div className="space-y-8">
                 <div>
-                  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-gray-300">
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="inline-flex items-center rounded-full border border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:border-white/30 hover:shadow-[0_6px_30px_rgba(255,255,255,0.15)] transition-all duration-300"
+                  >
                     About Me
-                  </span>
+                  </motion.span>
                   <h2 className="mt-4 text-3xl font-semibold text-white md:text-4xl lg:text-5xl">
                     Building thoughtful, human-centric web experiences.
                   </h2>
@@ -93,8 +89,20 @@ export default function About() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="rounded-2xl border border-white/10 bg-white/4 p-6 backdrop-blur-xl"
+                  className="rounded-2xl border relative border-white/10 bg-white/4  backdrop-blur-xl"
                 >
+                  <CardSpotlight>
+                    {/* <DottedGlowBackground
+              className="pointer-events-none opacity-60"
+              gap={14}
+              radius={1.2}
+              colorDarkVar="--glass-border"
+              glowColorDarkVar="--primary-glow"
+              backgroundOpacity={0.15}
+              speedMin={0.2}
+              speedMax={1}
+              speedScale={0.8}
+            /> */}
                   <h3 className="text-xl font-semibold text-white">
                     Creative process
                   </h3>
@@ -131,6 +139,7 @@ export default function About() {
                       </span>
                     </li>
                   </ul>
+                  </CardSpotlight>  
                 </motion.div>
 
                 <div className="rounded-2xl border border-primary/40 bg-linear-to-tr from-primary/30 to-secondary/30 p-6 text-white shadow-[0_20px_60px_rgba(59,130,246,0.35)]">
@@ -145,8 +154,9 @@ export default function About() {
                 </div>
               </div>
             </motion.div>
+       
           </div>
-        </CardSpotlight>
+       
       </div>
     </section>
   );
