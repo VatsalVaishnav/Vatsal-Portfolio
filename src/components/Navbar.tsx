@@ -32,7 +32,7 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold got-text">
-          Vatsal<span className="text-primary">.</span>
+          Vatsal<span className="text-white">.</span>
         </Link>
 
         {/* Desktop Menu */}
@@ -41,7 +41,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-gray-300 hover:text-primary transition-colors duration-300 font-semibold tracking-wide uppercase text-sm"
+              className="text-gray-300 hover:text-white transition-colors duration-300 font-semibold tracking-wide uppercase text-sm"
             >
               {link.name}
             </Link>
@@ -50,7 +50,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-300 hover:text-primary"
+          className="md:hidden text-gray-300 hover:text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -69,7 +69,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-gray-300 hover:text-primary text-lg font-semibold tracking-wide uppercase"
+                className="text-gray-300 hover:text-white text-lg font-semibold tracking-wide uppercase"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}

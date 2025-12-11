@@ -92,7 +92,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="inline-flex items-center rounded-full border border-gold/30 bg-linear-to-r from-gold/20 via-gold/10 to-gold/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold backdrop-blur-sm shadow-[0_4px_20px_rgba(212,175,55,0.2)] hover:border-gold/50 hover:shadow-[0_6px_30px_rgba(212,175,55,0.3)] transition-all duration-300"
+              className="inline-flex items-center rounded-full border border-white/20 bg-linear-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:border-white/40 hover:shadow-[0_6px_30px_rgba(255,255,255,0.1)] transition-all duration-300"
             >
               Projects
             </motion.span>
@@ -106,14 +106,14 @@ export default function Projects() {
           {projects.map((project) => (
             <div
               key={project.title}
-              className="group relative h-[450px] w-[350px] md:h-[500px] md:w-[400px] shrink-0 overflow-hidden rounded-2xl glass hover:border-gold/50 transition-colors duration-500"
+              className="group relative h-[450px] w-[350px] md:h-[500px] md:w-[400px] shrink-0 overflow-hidden rounded-2xl glass hover:border-white/30 transition-colors duration-500"
             >
               <div
                 className={`absolute inset-0 h-full w-full ${project.image} transition-transform duration-500 group-hover:scale-110 opacity-20 group-hover:opacity-30`}
               />
 
               <div className="absolute inset-0 flex flex-col justify-end p-8 bg-linear-to-t from-black via-black/80 to-transparent">
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-gold transition-colors duration-300 got-text">
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-white transition-colors duration-300 got-text">
                   {project.title}
                 </h3>
                 <p className="text-gray-300 mb-6 line-clamp-3">
@@ -124,7 +124,7 @@ export default function Projects() {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-xs px-3 py-1 bg-gold/10 border border-gold/30 rounded-full text-gold font-semibold uppercase tracking-wide"
+                      className="text-xs px-3 py-1 bg-white/10 border border-white/20 rounded-full text-white font-semibold uppercase tracking-wide"
                     >
                       {t}
                     </span>
@@ -134,13 +134,13 @@ export default function Projects() {
                 <div className="flex gap-4">
                   <Link
                     href={project.live}
-                    className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-black rounded-lg font-bold transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.4)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] uppercase tracking-wide"
+                    className="flex items-center gap-2 px-4 py-2 bg-linear-to-r from-primary to-red-dark hover:from-red-dark hover:to-primary text-white rounded-lg font-bold transition-all duration-300 shadow-[0_0_15px_rgba(220,20,60,0.5)] hover:shadow-[0_0_25px_rgba(220,20,60,0.7)] uppercase tracking-wide"
                   >
                     <ExternalLink size={18} /> Live Demo
                   </Link>
                   <Link
                     href={project.github}
-                    className="flex items-center gap-2 px-4 py-2 glass hover:bg-gold/10 text-gold rounded-lg font-bold transition-all duration-300 border border-gold/30 hover:border-gold uppercase tracking-wide"
+                    className="flex items-center gap-2 px-4 py-2 glass hover:bg-white/10 text-white rounded-lg font-bold transition-all duration-300 border border-white/20 hover:border-white/40 uppercase tracking-wide"
                   >
                     <Github size={18} /> GitHub
                   </Link>

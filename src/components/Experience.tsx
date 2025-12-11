@@ -62,7 +62,7 @@ export default function Experience() {
           speedMax={1}
           speedScale={0.8}
         />
-        <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px]" />
+        <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-primary/3 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[100px]" />
       </div>
 
@@ -79,7 +79,7 @@ export default function Experience() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-linear-to-r from-gold/20 via-gold/10 to-gold/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold backdrop-blur-sm shadow-[0_4px_20px_rgba(212,175,55,0.2)] hover:border-gold/50 hover:shadow-[0_6px_30px_rgba(212,175,55,0.3)] transition-all duration-300 mb-6"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-linear-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:border-white/40 hover:shadow-[0_6px_30px_rgba(255,255,255,0.1)] transition-all duration-300 mb-6"
           >
             <Briefcase className="w-3 h-3" />
             Career Journey
@@ -92,7 +92,7 @@ export default function Experience() {
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4 got-text"
           >
             Professional{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-gold to-secondary">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-white via-gray-300 to-white">
               Experience
             </span>
           </motion.h2>
@@ -119,9 +119,9 @@ export default function Experience() {
                 className="group relative"
               >
                 {/* Card Container */}
-                <div className="relative overflow-hidden rounded-2xl border border-gold/20 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl transition-all duration-500 hover:border-gold/40 hover:shadow-[0_20px_60px_rgba(212,175,55,0.3)]">
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl transition-all duration-500 hover:border-white/20 hover:shadow-[0_20px_60px_rgba(255,255,255,0.1)]">
                   {/* Gradient Overlay on Hover */}
-                  <div className="absolute inset-0 bg-linear-to-r from-gold/0 via-gold/5 to-red-dark/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-linear-to-r from-primary/0 via-primary/8 to-red-dark/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   {/* Content */}
                   <div className="relative p-6 md:p-8">
@@ -135,19 +135,19 @@ export default function Experience() {
                             whileInView={{ scale: 1, rotate: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.15 + 0.2, type: "spring", stiffness: 200 }}
-                            className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-gold/20 to-gold-dark/20 border border-gold/40 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all duration-300"
+                            className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-white/15 to-white/10 border border-white/25 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all duration-300"
                           >
-                            <Briefcase className="w-7 h-7 text-gold" />
+                            <Briefcase className="w-7 h-7 text-white" />
                           </motion.div>
                           
                           {/* Title Section */}
                           <div className="flex-1">
-                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-gold group-hover:to-gold-dark transition-all duration-300 got-text">
+                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-white transition-all duration-300 got-text">
                               {exp.role}
                             </h3>
                             <div className="flex flex-wrap items-center gap-3 text-sm">
                               <span className="text-gray-300 font-bold flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                                <span className="w-1.5 h-1.5 rounded-full bg-white" />
                                 {exp.company}
                               </span>
                               <span className="text-gray-500">•</span>
@@ -172,9 +172,9 @@ export default function Experience() {
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: index * 0.15 + 0.3 }}
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-gold/10 to-gold-dark/10 border border-gold/30 backdrop-blur-sm group-hover:border-gold/50 group-hover:from-gold/20 group-hover:to-gold-dark/20 transition-all duration-300"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-white/10 to-white/5 border border-white/20 backdrop-blur-sm group-hover:border-white/40 group-hover:from-white/15 group-hover:to-white/10 transition-all duration-300"
                         >
-                          <Calendar className="w-4 h-4 text-gold" />
+                          <Calendar className="w-4 h-4 text-white" />
                           <span className="text-gray-300 font-mono text-sm font-semibold">
                             {exp.period}
                           </span>
@@ -183,10 +183,10 @@ export default function Experience() {
                     </div>
 
                     {/* Achievements Section */}
-                    <div className="pt-6 border-t border-gold/20 group-hover:border-gold/40 transition-colors duration-300">
+                    <div className="pt-6 border-t border-white/10 group-hover:border-white/20 transition-colors duration-300">
                       <div className="flex items-center gap-2 mb-4">
-                        <ArrowRight className="w-4 h-4 text-gold" />
-                        <span className="text-sm font-bold text-gold uppercase tracking-wider got-text">
+                        <ArrowRight className="w-4 h-4 text-white" />
+                        <span className="text-sm font-bold text-white uppercase tracking-wider got-text">
                           Key Achievements
                         </span>
                       </div>
@@ -198,10 +198,10 @@ export default function Experience() {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.15 + 0.4 + idx * 0.1 }}
-                            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gold/5 border border-gold/20 group-hover:bg-gold/10 group-hover:border-gold/40 transition-all duration-300"
+                            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/15 group-hover:bg-white/10 group-hover:border-white/25 transition-all duration-300"
                           >
-                            <div className="w-1.5 h-1.5 rounded-full bg-gold" />
-                            <span className="text-sm text-gray-300 group-hover:text-gold font-medium transition-colors duration-300">
+                            <div className="w-1.5 h-1.5 rounded-full bg-white" />
+                            <span className="text-sm text-gray-300 group-hover:text-white font-medium transition-colors duration-300">
                               {achievement}
                             </span>
                           </motion.div>
@@ -210,7 +210,7 @@ export default function Experience() {
                     </div>
 
                     {/* Decorative Elements */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-gold/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-white/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
                     <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-red-dark/10 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
                   </div>
                 </div>

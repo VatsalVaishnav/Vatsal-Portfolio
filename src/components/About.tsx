@@ -24,7 +24,7 @@ export default function About() {
     <section id="about" className="relative py-24">
       <div className="container mx-auto px-6">
         
-          <div className="relative overflow-hidden rounded-3xl border border-gold/20 bg-linear-to-br from-black/80 via-black/60 to-black/80 px-8 py-12 md:px-12 backdrop-blur-sm">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-black/80 via-black/60 to-black/80 px-8 py-12 md:px-12 backdrop-blur-sm">
           
           
             <motion.div
@@ -41,7 +41,7 @@ export default function About() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="inline-flex items-center rounded-full border border-gold/30 bg-linear-to-r from-gold/20 via-gold/10 to-gold/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold backdrop-blur-sm shadow-[0_4px_20px_rgba(212,175,55,0.2)] hover:border-gold/50 hover:shadow-[0_6px_30px_rgba(212,175,55,0.3)] transition-all duration-300"
+                    className="inline-flex items-center rounded-full border border-white/20 bg-linear-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:border-white/40 hover:shadow-[0_6px_30px_rgba(255,255,255,0.1)] transition-all duration-300"
                   >
                     About Me
                   </motion.span>
@@ -61,7 +61,7 @@ export default function About() {
                   {focusAreas.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold backdrop-blur font-semibold uppercase tracking-wide"
+                      className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white backdrop-blur font-semibold uppercase tracking-wide"
                     >
                       {item}
                     </span>
@@ -73,9 +73,9 @@ export default function About() {
                     <motion.div
                       key={stat.label}
                       whileHover={{ y: -6 }}
-                      className="rounded-2xl border border-gold/20 bg-black/70 p-6 shadow-[0_20px_60px_rgba(212,175,55,0.2)] hover:border-gold/40 hover:shadow-[0_20px_60px_rgba(212,175,55,0.3)] transition-all duration-300"
+                      className="rounded-2xl border border-white/10 bg-black/70 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.3)] hover:border-white/20 hover:shadow-[0_20px_60px_rgba(255,255,255,0.1)] transition-all duration-300"
                     >
-                      <p className="text-4xl font-bold text-gold got-text">
+                      <p className="text-4xl font-bold text-white got-text">
                         {stat.value}
                       </p>
                       <p className="mt-2 text-sm text-gray-300 font-medium uppercase tracking-wide">{stat.label}</p>
@@ -103,7 +103,7 @@ export default function About() {
               speedMax={1}
               speedScale={0.8}
             /> */}
-                  <h3 className="text-xl font-bold text-gold got-text">
+                  <h3 className="text-xl font-bold text-white got-text">
                     Creative process
                   </h3>
                   <p className="mt-2 text-sm text-gray-300 font-medium">
@@ -112,27 +112,27 @@ export default function About() {
                   </p>
                   <ul className="mt-4 space-y-2 text-gray-300 text-sm leading-relaxed font-medium">
                     <li className="flex gap-2">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gold" />
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white" />
                       <span>
                         Sketch journeys, story-map features, and align on metrics.
                       </span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gold" />
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white" />
                       <span>
                         Prototype motion + micro-interactions to validate delight
                         quickly.
                       </span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gold" />
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white" />
                       <span>
                         Build accessible React systems with documented tokens +
                         variants.
                       </span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-gold" />
+                      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white" />
                       <span>
                         Measure performance budgets and iterate with real user
                         insights.
@@ -142,12 +142,12 @@ export default function About() {
                   </CardSpotlight>  
                 </motion.div>
 
-                <div className="rounded-2xl border border-gold/40 bg-linear-to-tr from-gold/20 via-gold/10 to-red-dark/20 p-6 text-gold shadow-[0_20px_60px_rgba(212,175,55,0.3)]">
+                <div className="rounded-2xl border border-white/20 bg-linear-to-tr from-white/10 via-white/5 to-white/10 p-6 text-white shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
                   <p className="text-lg font-bold got-text">
                     Currently seeking teams who value craft, experimentation, and
                     shipping with intention.
                   </p>
-                  <p className="mt-2 text-sm text-gold/90 font-medium">
+                  <p className="mt-2 text-sm text-white/90 font-medium">
                     Let&apos;s build something ambitious together—reach out for
                     collaborations or full-time roles.
                   </p>

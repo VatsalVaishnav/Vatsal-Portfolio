@@ -83,7 +83,7 @@ export default function Skills() {
   return (
     <section id="skills" className="relative overflow-hidden py-24">
       <div className="absolute inset-0 -z-10 opacity-70">
-        <div className="absolute top-[-15%] left-[-10%] h-64 w-64 rounded-full bg-primary/20 blur-[120px]" />
+        <div className="absolute top-[-15%] left-[-10%] h-64 w-64 rounded-full bg-primary/5 blur-[120px]" />
         <div className="absolute bottom-[-15%] right-[-5%] h-72 w-72 rounded-full bg-secondary/25 blur-[140px]" />
       </div>
 
@@ -100,7 +100,7 @@ export default function Skills() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="inline-flex items-center rounded-full border border-gold/30 bg-linear-to-r from-gold/20 via-gold/10 to-gold/20 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-gold backdrop-blur-sm shadow-[0_4px_20px_rgba(212,175,55,0.2)] hover:border-gold/50 hover:shadow-[0_6px_30px_rgba(212,175,55,0.3)] transition-all duration-300"
+            className="inline-flex items-center rounded-full border border-white/20 bg-linear-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-white backdrop-blur-sm shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:border-white/40 hover:shadow-[0_6px_30px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             Skills
           </motion.span>
@@ -128,9 +128,9 @@ export default function Skills() {
               {[...featuredSkills, ...featuredSkills].map((skill, index) => (
                 <div
                   key={`${skill.name}-${index}`}
-                  className="flex min-w-[200px] items-center gap-3 rounded-xl border border-gold/20 bg-gold/10 px-4 py-3 text-gold font-semibold"
+                  className="flex min-w-[200px] items-center gap-3 rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-white font-semibold"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/20 border border-gold/30">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 border border-white/25">
                     <Image
                       src={skill.icon || javascriptLogo}
                       alt={skill.name}
@@ -152,17 +152,17 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: index * 0.08 }}
-              className="relative overflow-hidden rounded-2xl border border-gold/20 bg-black/60 p-6 shadow-[0_20px_60px_rgba(212,175,55,0.2)] backdrop-blur"
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/60 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur"
             >
               <div className="absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-100">
-                <div className="absolute inset-0 bg-linear-to-br from-gold/20 via-transparent to-red-dark/20 blur-2xl" />
+                <div className="absolute inset-0 bg-linear-to-br from-white/10 via-transparent to-white/5 blur-2xl" />
               </div>
               <div className="relative z-10 space-y-4">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-gold/70 font-bold">
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/70 font-bold">
                     {category.caption}
                   </p>
-                  <h3 className="mt-2 text-xl font-bold text-gold got-text">
+                  <h3 className="mt-2 text-xl font-bold text-white got-text">
                     {category.title}
                   </h3>
                 </div>
@@ -171,9 +171,9 @@ export default function Skills() {
                     <motion.span
                       key={skill.name}
                       whileHover={{ y: -3 }}
-                      className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-sm text-gold backdrop-blur font-semibold"
+                      className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm text-white backdrop-blur font-semibold"
                     >
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gold/20 border border-gold/30">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 border border-white/25">
                         {skill.icon ? (
                           <Image
                             src={skill.icon}
