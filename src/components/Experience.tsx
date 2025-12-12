@@ -1,224 +1,178 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
-import { Briefcase, Calendar, MapPin, ArrowRight } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { Briefcase, MapPin } from "lucide-react";
+import SectionHeading from "./SectionHeading";
+import { useContentfulData } from "../context/ContentfulContext";
 
-const experiences = [
-  {
-    role: "Senior Frontend Developer",
-    company: "Tech Solutions Inc.",
-    period: "2023 - Present",
-    location: "Remote",
-    description:
-      "Leading the frontend team in building scalable web applications using Next.js and React.",
-    achievements: [
-      "Led a team of 5 developers",
-      "Improved app performance by 40%",
-      "Implemented modern design systems",
-    ],
-  },
-  {
-    role: "Frontend Developer",
-    company: "Digital Agency",
-    period: "2021 - 2023",
-    location: "New York, NY",
-    description:
-      "Developed responsive websites and landing pages for various clients using modern web technologies.",
-    achievements: [
-      "Delivered 20+ client projects",
-      "Reduced load time by 50%",
-      "Achieved 95% client satisfaction",
-    ],
-  },
-  {
-    role: "Junior Web Developer",
-    company: "StartUp Hub",
-    period: "2020 - 2021",
-    location: "San Francisco, CA",
-    description:
-      "Assisted in the development of the company's main product and maintained legacy code.",
-    achievements: [
-      "Fixed 100+ bugs",
-      "Improved code quality",
-      "Learned modern frameworks",
-    ],
-  },
-];
+const Experience = () => {
+  const { content } = useContentfulData();
+  const { experiences, personal } = content;
+  const timelineRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-export default function Experience() {
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      );
+    };
+    checkMobile();
+  }, []);
+
+  // All hooks must be called before any conditional returns
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 0.6", "end 0.3"],
+  });
+
+  // Simplified spring on mobile for better performance
+  const easedProgress = useSpring(scrollYProgress || 0, {
+    stiffness: isMobile ? 80 : 120,
+    damping: isMobile ? 30 : 24,
+    mass: isMobile ? 1 : 0.6,
+  });
+
+  const indicatorOffset = useTransform(easedProgress, (value) => {
+    const percentage = Math.min(Math.max(value || 0, 0), 1) * 100;
+    return `calc(${percentage}% - 1.125rem)`;
+  });
+
+  // Now we can do conditional returns after all hooks
+  if (!experiences || !personal || experiences.length === 0) {
+    return null;
+  }
+
   return (
-    <section id="experience" className="py-24 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        <DottedGlowBackground
-          className="pointer-events-none opacity-40"
-          gap={14}
-          radius={1.2}
-          colorDarkVar="--glass-border"
-          glowColorDarkVar="--primary-glow"
-          backgroundOpacity={0.1}
-          speedMin={0.2}
-          speedMax={1}
-          speedScale={0.8}
+    <section id="experience" className="relative scroll-mt-24">
+      <div className="mx-auto max-w-7xl px-6 py-8 sm:py-16 md:py-24">
+        <SectionHeading
+          eyebrow="Experience"
+          title="Delivering momentum across agencies and product teams."
+          subtitle="From design sprints to production launches, I translate ideas into interactive experiences that convert."
         />
-        <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[100px]" />
-      </div>
 
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:border-white/30 hover:shadow-[0_6px_30px_rgba(255,255,255,0.15)] transition-all duration-300 mb-6"
-          >
-            <Briefcase className="w-3 h-3" />
-            Career Journey
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4"
-          >
-            Professional{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-secondary to-primary">
-              Experience
-            </span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-4 text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed"
-          >
-            A journey through my professional growth and the impactful roles that shaped my expertise.
-          </motion.p>
-        </motion.div>
-
-        <div className="max-w-6xl mx-auto">
-          <div className="grid gap-6 md:gap-8">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
+        <div ref={timelineRef} className="relative">
+          <div className="space-y-12">
+            {experiences.map((item) => (
+              <motion.article
+                key={`${item.company}-${item.duration}`}
+                initial={{ opacity: 0, y: 32 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: index * 0.15, duration: 0.6, ease: "easeOut" }}
-                className="group relative"
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-1 gap-6 py-12 first:pt-0 last:pb-0 md:grid-cols-[2fr_1fr_4fr]"
               >
-                {/* Card Container */}
-                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(59,130,246,0.2)]">
-                  {/* Gradient Overlay on Hover */}
-                  <div className="absolute inset-0 bg-linear-to-r from-primary/0 via-primary/5 to-secondary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Content */}
-                  <div className="relative p-6 md:p-8">
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                      {/* Left Section */}
-                      <div className="flex-1">
-                        <div className="flex items-start gap-4 mb-4">
-                          {/* Icon Badge */}
-                          <motion.div
-                            initial={{ scale: 0, rotate: -180 }}
-                            whileInView={{ scale: 1, rotate: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.15 + 0.2, type: "spring", stiffness: 200 }}
-                            className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300"
-                          >
-                            <Briefcase className="w-7 h-7 text-primary" />
-                          </motion.div>
-                          
-                          {/* Title Section */}
-                          <div className="flex-1">
-                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
-                              {exp.role}
-                            </h3>
-                            <div className="flex flex-wrap items-center gap-3 text-sm">
-                              <span className="text-gray-300 font-semibold flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                {exp.company}
-                              </span>
-                              <span className="text-gray-500">•</span>
-                              <span className="text-gray-400 flex items-center gap-1.5">
-                                <MapPin className="w-4 h-4" />
-                                {exp.location}
-                              </span>
-                            </div>
-                          </div>
+                <div className="w-full lg:max-w-sm">
+                    <div className="flex flex-col items-start gap-y-3 text-sm font-light">
+                    <time className="text-xs font-semibold uppercase tracking-[0.45em] text-gray-400">
+                      {item.duration}
+                    </time>
+                    <div className="flex items-center gap-3">
+                      {item.logoImage ? (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/30 bg-linear-to-br from-primary/20 to-secondary/20 p-1.5 shadow-lg backdrop-blur-sm">
+                          <img
+                            src={item.logoImage}
+                            alt={`${item.company} logo`}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-contain"
+                          />
                         </div>
-                        
-                        {/* Description */}
-                        <p className="text-gray-400 leading-relaxed text-base mb-6 group-hover:text-gray-300 transition-colors duration-300">
-                          {exp.description}
-                        </p>
-                      </div>
-
-                      {/* Right Section - Period Badge */}
-                      <div className="shrink-0">
-                        <motion.div
-                          initial={{ opacity: 0, x: 20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.15 + 0.3 }}
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-linear-to-r from-primary/10 to-secondary/10 border border-primary/20 backdrop-blur-sm group-hover:border-primary/40 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300"
-                        >
-                          <Calendar className="w-4 h-4 text-primary" />
-                          <span className="text-gray-300 font-mono text-sm font-semibold">
-                            {exp.period}
+                      ) : null}
+                      <h2 className="font-serif text-2xl font-semibold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-primary via-secondary to-primary md:text-3xl">
+                        {item.company}
+                      </h2>
+                    </div>
+                    <div className="flex flex-col gap-2 text-gray-400">
+                      {item.location && (
+                        <div className="flex items-center gap-1.5">
+                          <MapPin className="h-3.5 w-3.5 shrink-0 text-primary/80" />
+                          <span className="text-sm">{item.location}</span>
+                        </div>
+                      )}
+                      {item.workMode && (
+                        <div className="flex items-center gap-1.5">
+                          <Briefcase className="h-3.5 w-3.5 shrink-0 text-secondary/80" />
+                          <span className="text-sm font-semibold text-gray-300">
+                            {item.workMode}
                           </span>
-                        </motion.div>
-                      </div>
+                        </div>
+                      )}
                     </div>
-
-                    {/* Achievements Section */}
-                    <div className="pt-6 border-t border-white/10 group-hover:border-primary/20 transition-colors duration-300">
-                      <div className="flex items-center gap-2 mb-4">
-                        <ArrowRight className="w-4 h-4 text-primary" />
-                        <span className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
-                          Key Achievements
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        {exp.achievements.map((achievement, idx) => (
-                          <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.15 + 0.4 + idx * 0.1 }}
-                            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/5 group-hover:bg-primary/5 group-hover:border-primary/20 transition-all duration-300"
-                          >
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                              {achievement}
-                            </span>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Decorative Elements */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-primary/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-2xl" />
-                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-secondary/10 to-transparent rounded-tr-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
                   </div>
                 </div>
-              </motion.div>
+
+                <div className="hidden md:block" />
+
+                <div className="relative w-full">
+                  <div className="flex flex-col gap-6 text-sm leading-relaxed text-gray-300">
+                    <header>
+                      <h3 className="text-xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary md:text-2xl">
+                        {item.role}
+                      </h3>
+                    </header>
+                    <section aria-label="Key achievements">
+                      <ul className="flex list-none flex-col gap-4 text-gray-300/90">
+                        <li className="leading-relaxed flex items-start gap-2">
+                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-linear-to-r from-primary to-secondary shrink-0" />
+                          <span>{item.achievement}</span>
+                        </li>
+                      </ul>
+                    </section>
+                    {item.skills?.length ? (
+                      <section aria-label="Technologies used">
+                        <div className="flex flex-wrap gap-2">
+                          {item.skills.map((skill) => (
+                            <span
+                              key={skill}
+                              className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 bg-linear-to-r from-primary/10 via-secondary/10 to-primary/10 px-3 py-1 font-mono text-xs uppercase tracking-[0.35em] text-gray-200 shadow-sm hover:border-primary/50 hover:bg-linear-to-r hover:from-primary/20 hover:via-secondary/20 hover:to-primary/20 transition-all duration-300"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </section>
+                    ) : null}
+                  </div>
+                </div>
+              </motion.article>
             ))}
           </div>
+
+          {/* Timeline Indicator - Only render when data is loaded */}
+          {personal && experiences && experiences.length > 0 && (
+            <div className="pointer-events-none absolute inset-y-9 left-[calc(32%-1rem)] hidden w-8 md:flex">
+              <div className="relative h-full w-full">
+                <div className="absolute inset-0 left-1/2 hidden h-full w-1.5 -translate-x-1/2 rounded-full bg-black/50 border border-primary/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] md:block" />
+                <motion.div
+                  className="absolute inset-0 left-1/2 hidden h-full w-1.5 -translate-x-1/2 origin-top rounded-full bg-linear-to-b from-primary via-secondary to-primary md:block shadow-[0_0_10px_rgba(59,130,246,0.3)]"
+                  style={{ scaleY: easedProgress }}
+                />
+                <motion.div
+                  className="absolute left-1/2 hidden -translate-x-1/2 md:flex"
+                  style={{ top: indicatorOffset }}
+                >
+                  <div className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-primary/60 bg-black/80 shadow-lg shadow-primary/50 ring-2 ring-secondary/30">
+                    <img
+                      src={personal.photo}
+                      alt="Timeline avatar"
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Experience;

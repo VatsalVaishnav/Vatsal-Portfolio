@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useMemo } from "react";
+import { motion, useInView } from "framer-motion";
 import { Mail, Github, Linkedin, Instagram, Phone, Send, User, MessageSquare, ArrowRight, MapPin } from "lucide-react";
 import Link from "next/link";
 import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
@@ -36,48 +37,68 @@ const socialLinks = [
 ];
 
 export default function Contact() {
+  const headerRef = useRef(null);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  
+  const headerInView = useInView(headerRef, { once: true, amount: 0.3, margin: "-50px" });
+  const leftInView = useInView(leftRef, { once: true, amount: 0.2, margin: "-50px" });
+  const rightInView = useInView(rightRef, { once: true, amount: 0.2, margin: "-50px" });
+
+  // Memoize animation variants for better performance
+  const fadeInUp = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.4 }
+  }), []);
+
+  const fadeInLeft = useMemo(() => ({
+    initial: { opacity: 0, x: -30 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.5 }
+  }), []);
+
+  const fadeInRight = useMemo(() => ({
+    initial: { opacity: 0, x: 30 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.5 }
+  }), []);
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
-      {/* Background Elements */}
       <div className="absolute inset-0 -z-10">
         <DottedGlowBackground
-          className="pointer-events-none opacity-40"
-          gap={14}
-          radius={1.2}
+          className="pointer-events-none opacity-30"
+          gap={24}
+          radius={1}
           colorDarkVar="--glass-border"
           glowColorDarkVar="--primary-glow"
-          backgroundOpacity={0.1}
-          speedMin={0.2}
-          speedMax={1}
-          speedScale={0.8}
+          backgroundOpacity={0.08}
+          speedMin={0.1}
+          speedMax={0.5}
+          speedScale={0.5}
         />
-        <div className="absolute top-[20%] left-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[100px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[50%] h-[50%] bg-primary/8 rounded-full blur-[80px] will-change-transform" style={{ transform: 'translateZ(0)' }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/8 rounded-full blur-[80px] will-change-transform" style={{ transform: 'translateZ(0)' }} />
       </div>
 
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          ref={headerRef}
+          initial="initial"
+          animate={headerInView ? "animate" : "initial"}
           className="text-center mb-16"
         >
           <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:border-white/30 hover:shadow-[0_6px_30px_rgba(255,255,255,0.15)] transition-all duration-300 mb-6"
+            variants={fadeInUp}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-linear-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:border-white/30 hover:shadow-[0_6px_30px_rgba(255,255,255,0.15)] transition-all duration-300 mb-6 will-change-transform"
           >
             <Send className="w-3 h-3" />
             Get in Touch
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            variants={fadeInUp}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4"
           >
             Let&apos;s{" "}
@@ -86,10 +107,8 @@ export default function Contact() {
             </span>
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            variants={fadeInUp}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="mt-4 text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed"
           >
             Have a project in mind or just want to say hi? I&apos;d love to hear from you and discuss how we can bring your ideas to life.
@@ -97,15 +116,13 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
-          {/* Contact Info Cards */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            ref={leftRef}
+            initial="initial"
+            animate={leftInView ? "animate" : "initial"}
+            variants={fadeInLeft}
             className="space-y-6"
           >
-            {/* Contact Methods */}
             <div className="space-y-4">
               {contactMethods.map((method, index) => {
                 const Icon = method.icon;
@@ -114,26 +131,17 @@ export default function Contact() {
                     key={index}
                     href={method.href}
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 + 0.3 }}
-                    whileHover={{ y: -5, scale: 1.02 }}
-                    className="group relative block overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(59,130,246,0.2)]"
+                    animate={leftInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+                    className="group relative block overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(59,130,246,0.2)] will-change-transform"
                   >
-                    {/* Gradient Overlay */}
-                    <div className={`absolute inset-0 bg-linear-to-br ${method.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                    <div className={`absolute inset-0 bg-linear-to-br ${method.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
                     
                     <div className="relative p-6 flex items-center gap-4">
-                      {/* Icon */}
-                      <motion.div
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                        className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300"
-                      >
+                      <div className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 will-change-transform group-hover:rotate-3">
                         <Icon className="w-7 h-7 text-primary" />
-                      </motion.div>
+                      </div>
                       
-                      {/* Content */}
                       <div className="flex-1">
                         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
                           {method.label}
@@ -150,13 +158,11 @@ export default function Contact() {
               })}
             </div>
 
-            {/* Social Links */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl p-6"
+              animate={leftInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.4, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-sm p-6"
             >
               <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <span className="w-1 h-4 bg-linear-to-b from-primary to-secondary rounded-full" />
@@ -168,14 +174,13 @@ export default function Contact() {
                   return (
                     <motion.div
                       key={index}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.6 + index * 0.1, type: "spring", stiffness: 200 }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={leftInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
                     >
                       <Link
                         href={social.href}
-                        className={`group relative flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-gray-400 transition-all duration-300 hover:border-primary/50 hover:text-white ${social.color} hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]`}
+                        className={`group relative flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-gray-400 transition-all duration-300 hover:border-primary/50 hover:text-white ${social.color} hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] will-change-transform`}
                         aria-label={social.label}
                       >
                         <Icon className="w-5 h-5 relative z-10" />
@@ -188,35 +193,37 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            ref={rightRef}
+            initial="initial"
+            animate={rightInView ? "animate" : "initial"}
+            variants={fadeInRight}
           >
             <form
-              className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-xl p-8 md:p-10"
+              className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-sm p-8 md:p-10"
               onSubmit={(e) => e.preventDefault()}
             >
-              {/* Decorative Elements */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-primary/10 to-transparent rounded-bl-full opacity-50 blur-2xl" />
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-secondary/10 to-transparent rounded-tr-full opacity-50 blur-xl" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-primary/10 to-transparent rounded-bl-full opacity-30 blur-xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-secondary/10 to-transparent rounded-tr-full opacity-30 blur-lg pointer-events-none" />
 
               <div className="relative space-y-6">
-                <div className="flex items-center gap-3 mb-6">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  className="flex items-center gap-3 mb-6"
+                >
                   <div className="w-10 h-10 rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center">
                     <MessageSquare className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">Send a Message</h3>
-                </div>
+                </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <motion.div
+                  <motion.div 
                     initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
+                    animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
                     className="space-y-2"
                   >
                     <label htmlFor="name" className="text-sm font-semibold text-gray-400 ml-1 flex items-center gap-2">
@@ -233,11 +240,10 @@ export default function Contact() {
                     </div>
                   </motion.div>
 
-                  <motion.div
+                  <motion.div 
                     initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
+                    animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                    transition={{ duration: 0.4, delay: 0.4 }}
                     className="space-y-2"
                   >
                     <label htmlFor="email" className="text-sm font-semibold text-gray-400 ml-1 flex items-center gap-2">
@@ -255,11 +261,10 @@ export default function Contact() {
                   </motion.div>
                 </div>
 
-                <motion.div
+                <motion.div 
                   initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 }}
+                  animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                  transition={{ duration: 0.4, delay: 0.5 }}
                   className="space-y-2"
                 >
                   <label htmlFor="message" className="text-sm font-semibold text-gray-400 ml-1 flex items-center gap-2">
@@ -277,14 +282,13 @@ export default function Contact() {
                 </motion.div>
 
                 <motion.button
+                  type="submit"
                   initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6 }}
+                  animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                  transition={{ duration: 0.4, delay: 0.6 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  className="w-full py-4 bg-linear-to-r from-primary to-secondary hover:from-blue-600 hover:to-pink-600 text-white rounded-xl font-semibold transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] flex items-center justify-center gap-2 group"
+                  className="w-full py-4 bg-linear-to-r from-primary to-secondary hover:from-blue-600 hover:to-pink-600 text-white rounded-xl font-semibold transition-all duration-200 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] flex items-center justify-center gap-2 group will-change-transform"
                 >
                   <span>Send Message</span>
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

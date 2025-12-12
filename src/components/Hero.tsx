@@ -79,21 +79,48 @@ export default function Hero() {
                     <motion.div
                         key={skill.alt}
                         className={`absolute ${skill.position}`}
-                        animate={{ y: [0, skill.drift, 0] }}
+                        animate={{ 
+                            y: [0, skill.drift, 0],
+                        }}
                         transition={{
                             duration: 4 + index * 0.3,
                             repeat: Infinity,
                             ease: "easeInOut",
                         }}
                     >
-                        <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
+                        <motion.div 
+                            className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/40 bg-white/10 backdrop-blur-xl"
+                            animate={{
+                                boxShadow: [
+                                    "0 0 20px rgba(59,130,246,0.4), 0 0 40px rgba(236,72,153,0.3), 0 10px 40px rgba(0,0,0,0.4)",
+                                    "0 0 30px rgba(59,130,246,0.6), 0 0 60px rgba(236,72,153,0.5), 0 10px 40px rgba(0,0,0,0.4)",
+                                    "0 0 20px rgba(59,130,246,0.4), 0 0 40px rgba(236,72,153,0.3), 0 10px 40px rgba(0,0,0,0.4)"
+                                ]
+                            }}
+                            transition={{
+                                duration: 2 + index * 0.2,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                        >
                             <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/40 to-secondary/40 opacity-30" />
+                            <motion.div 
+                                className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/30 to-secondary/30 blur-sm"
+                                animate={{
+                                    opacity: [0.3, 0.6, 0.3]
+                                }}
+                                transition={{
+                                    duration: 2.5 + index * 0.15,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                }}
+                            />
                             <Image
                                 src={skill.src}
                                 alt={skill.alt}
-                                className="relative h-9 w-9 object-contain"
+                                className="relative h-9 w-9 object-contain z-10"
                             />
-                        </div>
+                        </motion.div>
                     </motion.div>
                 ))}
             </div>
