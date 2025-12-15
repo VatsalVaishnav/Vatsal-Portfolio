@@ -24,7 +24,7 @@ export default function About() {
     <section id="about" className="relative py-24">
       <div className="container mx-auto px-6">
         
-          <div className="relative overflow-hidden rounded-3xl border border-white/5 bg-linear-to-br from-white/10 via-white/5 to-white/0 px-8 py-12 md:px-12">
+          <div className="relative overflow-hidden rounded-3xl border border-white/5 bg-linear-to-br from-white/10 via-white/5 to-white/0 px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-12 lg:px-12">
           
           
             <motion.div
