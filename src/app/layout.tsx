@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import PageLoader from "@/components/PageLoader";
+import BackgroundAudio from "@/components/BackgroundAudio";
 import { ContentfulProvider } from "@/context/ContentfulContext";
 
 const geistSans = Geist({
@@ -31,6 +32,7 @@ export default function RootLayout({
       >
         <ContentfulProvider>
           <PageLoader />
+          <BackgroundAudio />
           {children}
         </ContentfulProvider>
       </body>

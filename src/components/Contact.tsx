@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState, FormEvent, ChangeEvent } from "react";
 import { motion, useInView } from "framer-motion";
-import { Mail, Github, Linkedin, Instagram, Phone, Send, User, MessageSquare, ArrowRight, MapPin } from "lucide-react";
+import { Mail, Github, Linkedin, Instagram, Phone, Send, User, MessageSquare, ArrowRight, MapPin, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import emailjs from '@emailjs/browser';
 import Link from "next/link";
 import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
 
@@ -40,10 +41,72 @@ export default function Contact() {
   const headerRef = useRef(null);
   const leftRef = useRef(null);
   const rightRef = useRef(null);
-  
+
   const headerInView = useInView(headerRef, { once: true, amount: 0.3, margin: "-50px" });
   const leftInView = useInView(leftRef, { once: true, amount: 0.2, margin: "-50px" });
   const rightInView = useInView(rightRef, { once: true, amount: 0.2, margin: "-50px" });
+
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormState((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!formState.name || !formState.email || !formState.message) {
+      setErrorMessage("Please fill in all fields");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setErrorMessage("Email service not configured. Please check environment variables.");
+      setStatus("error");
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formState.name,
+          from_email: formState.email,
+          message: formState.message,
+          to_email: 'vatsalvaishnav0503@gmail.com',
+        },
+        publicKey
+      );
+
+      setStatus("success");
+      setFormState({ name: "", email: "", message: "" });
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setErrorMessage("Failed to send message. Please try again later.");
+      setStatus("error");
+    }
+  };
 
   // Memoize animation variants for better performance
   const fadeInUp = useMemo(() => ({
@@ -136,12 +199,12 @@ export default function Contact() {
                     className="group relative block overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-[0_20px_60px_rgba(59,130,246,0.2)] will-change-transform"
                   >
                     <div className={`absolute inset-0 bg-linear-to-br ${method.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                    
+
                     <div className="relative p-6 flex items-center gap-4">
                       <div className="shrink-0 w-14 h-14 rounded-xl bg-linear-to-br from-primary/20 to-secondary/20 border border-primary/30 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300 will-change-transform group-hover:rotate-3">
                         <Icon className="w-7 h-7 text-primary" />
                       </div>
-                      
+
                       <div className="flex-1">
                         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
                           {method.label}
@@ -150,7 +213,7 @@ export default function Contact() {
                           {method.value}
                         </p>
                       </div>
-                      
+
                       <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" />
                     </div>
                   </motion.a>
@@ -201,13 +264,13 @@ export default function Contact() {
           >
             <form
               className="relative overflow-hidden rounded-2xl border border-white/10 bg-linear-to-br from-[#0a0a0a]/95 via-[#0f0f0f]/95 to-[#0a0a0a]/95 backdrop-blur-sm p-8 md:p-10"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-primary/10 to-transparent rounded-bl-full opacity-30 blur-xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-linear-to-tr from-secondary/10 to-transparent rounded-tr-full opacity-30 blur-lg pointer-events-none" />
 
               <div className="relative space-y-6">
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                   transition={{ duration: 0.4, delay: 0.1 }}
@@ -220,7 +283,7 @@ export default function Contact() {
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.4, delay: 0.3 }}
@@ -234,13 +297,16 @@ export default function Contact() {
                       <input
                         type="text"
                         id="name"
-                        className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 focus:shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                        value={formState.name}
+                        onChange={handleChange}
+                        disabled={status === 'loading'}
+                        className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 focus:shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
                         placeholder="Your name"
                       />
                     </div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{ duration: 0.4, delay: 0.4 }}
@@ -254,14 +320,17 @@ export default function Contact() {
                       <input
                         type="email"
                         id="email"
-                        className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 focus:shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                        value={formState.email}
+                        onChange={handleChange}
+                        disabled={status === 'loading'}
+                        className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 focus:shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
                         placeholder="your.email@example.com"
                       />
                     </div>
                   </motion.div>
                 </div>
 
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                   transition={{ duration: 0.4, delay: 0.5 }}
@@ -275,7 +344,10 @@ export default function Contact() {
                     <textarea
                       id="message"
                       rows={5}
-                      className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 resize-none focus:shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                      value={formState.message}
+                      onChange={handleChange}
+                      disabled={status === 'loading'}
+                      className="w-full px-4 py-3.5 rounded-xl bg-black/30 border border-white/10 focus:border-primary focus:bg-white/5 focus:outline-none text-white transition-all duration-300 placeholder:text-gray-600 resize-none focus:shadow-[0_0_20px_rgba(59,130,246,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
                       placeholder="Tell me about your project or just say hello..."
                     />
                   </div>
@@ -283,16 +355,51 @@ export default function Contact() {
 
                 <motion.button
                   type="submit"
+                  disabled={status === 'loading' || status === 'success'}
                   initial={{ opacity: 0, y: 10 }}
                   animate={rightInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                   transition={{ duration: 0.4, delay: 0.6 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-linear-to-r from-primary to-secondary hover:from-blue-600 hover:to-pink-600 text-white rounded-xl font-semibold transition-all duration-200 shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] flex items-center justify-center gap-2 group will-change-transform"
+                  whileHover={{ scale: status === 'loading' || status === 'success' ? 1 : 1.02 }}
+                  whileTap={{ scale: status === 'loading' || status === 'success' ? 1 : 0.98 }}
+                  className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center gap-2 group will-change-transform ${status === 'success'
+                      ? 'bg-green-500/20 text-green-400 border border-green-500/50 cursor-default shadow-[0_0_30px_rgba(34,197,94,0.2)]'
+                      : status === 'error'
+                        ? 'bg-red-500/20 text-red-400 border border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.2)]'
+                        : 'bg-linear-to-r from-primary to-secondary hover:from-blue-600 hover:to-pink-600 text-white shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]'
+                    }`}
                 >
-                  <span>Send Message</span>
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  {status === 'loading' ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : status === 'success' ? (
+                    <>
+                      <CheckCircle2 className="w-5 h-5" />
+                      <span>Message Sent!</span>
+                    </>
+                  ) : status === 'error' ? (
+                    <>
+                      <XCircle className="w-5 h-5" />
+                      <span>Retry</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </motion.button>
+
+                {status === 'error' && errorMessage && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-red-400 text-sm text-center mt-2"
+                  >
+                    {errorMessage}
+                  </motion.p>
+                )}
               </div>
             </form>
           </motion.div>
