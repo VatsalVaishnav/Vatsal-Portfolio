@@ -66,7 +66,9 @@ export default function Hero() {
                 particleDensity={100}
                 className="w-full h-full absolute"
                 particleColor="#FFFFFF"
-            />
+            />                
+
+
             {/* Background Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[100px]" />
@@ -89,7 +91,7 @@ export default function Hero() {
                         }}
                     >
                         <motion.div 
-                            className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/40 bg-white/10 backdrop-blur-xl"
+                            className="relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl border border-primary/40 bg-white/10 backdrop-blur-xl"
                             animate={{
                                 boxShadow: [
                                     "0 0 20px rgba(59,130,246,0.4), 0 0 40px rgba(236,72,153,0.3), 0 10px 40px rgba(0,0,0,0.4)",
@@ -118,21 +120,21 @@ export default function Hero() {
                             <Image
                                 src={skill.src}
                                 alt={skill.alt}
-                                className="relative h-9 w-9 object-contain z-10"
+                                className="relative h-5 w-5 md:h-7 md:w-7 object-contain z-10"
                             />
                         </motion.div>
                     </motion.div>
                 ))}
             </div>
 
-            <div className="container mx-auto px-6 text-center">
+            <div className="container mx-auto px-4 sm:px-6 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
                     <motion.div
-                        className="relative w-48 h-48 mx-auto mb-8"
+                        className="relative w-32 h-32 md:w-48 md:h-48 mx-auto mb-6 md:mb-8"
                         animate={{ y: [0, -10, 0] }}
                         transition={{
                             duration: 4,
@@ -154,31 +156,31 @@ export default function Hero() {
                         </motion.div>
                     </motion.div>
 
-                    <h2 className="text-xl md:text-2xl text-primary font-medium mb-4">
+                    <h2 className="text-lg sm:text-xl md:text-2xl text-primary font-medium mb-3 md:mb-4">
                         Hi, I&apos;m Vatsal Vaishnav
                     </h2>
 
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight">
                         Frontend{" "}
                         <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
                             Developer
                         </span>
                     </h1>
-                    <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+                    <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 md:mb-10 px-4">
                         I build fast, modern, responsive web experiences with a focus on
                         clean code and user-centric design.
                     </p>
 
-                    <div className="flex flex-col md:flex-row gap-4 justify-center">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
                         <Link
                             href="#projects"
-                            className="px-8 py-3 bg-primary hover:bg-blue-600 text-white rounded-full font-medium transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)]"
+                            className="w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 bg-primary hover:bg-blue-600 text-white rounded-full font-medium transition-all duration-300 shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)] text-sm sm:text-base"
                         >
                             View Projects
                         </Link>
                         <Link
                             href="#contact"
-                            className="px-8 py-3 glass hover:bg-white/10 text-white rounded-full font-medium transition-all duration-300"
+                            className="w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 glass hover:bg-white/10 text-white rounded-full font-medium transition-all duration-300 text-sm sm:text-base"
                         >
                             Hire Me
                         </Link>
