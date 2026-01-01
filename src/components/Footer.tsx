@@ -7,7 +7,7 @@ export default function Footer() {
           reserved.
         </p>
         <p className="text-sm mt-2">
-          Built with Next.js, TailwindCSS & Framer Motion
+          {/* Built with Next.js, TailwindCSS & Framer Motion */}
         </p>
       </div>
     </footer>
