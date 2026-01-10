@@ -1,74 +1,191 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Play, Pause } from "lucide-react";
-const audioSrc = "/audio/public_audio_loop.mp3";
+import { useRef, useEffect, useState, memo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaPlay, FaPause, FaMusic } from "react-icons/fa";
 
-export default function BackgroundAudio() {
+const BackgroundMusic = memo(() => {
+    const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = useRef<HTMLAudioElement | null>(null);
+    const [hasInteracted, setHasInteracted] = useState(false);
+    const isPausedByUser = useRef(false);
 
-    // Use a direct path if the file is in public, or import it if in src/assets.
-    // Since the user pointed to src/assets, we should verify how assets are handled.
-    // Assuming standard Next.js import capability for assets.
-    // If this fails, we might need to move the file to public/ or check configuration.
-    // Ideally, for a persistent audio file, importing it is best to get the hashed URL.
-
-    // However, I need to know the import path relative to this component.
-    // component is in src/components
-    // audio is in src/assets/audio
-    // so import path: "@/assets/audio/public_audio_loop.mp3"
-
+    // Initialize audio and attempt autoplay
     useEffect(() => {
-        // Attempt to autoplay on mount
-        const audio = audioRef.current;
-        if (audio) {
-            audio.volume = 0.4; // Set a reasonable default volume
-            const playPromise = audio.play();
+        if (!audioRef.current) return;
 
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    setIsPlaying(true);
-                }).catch((error) => {
-                    // Auto-play was prevented
-                    console.log("Autoplay prevented:", error);
-                    setIsPlaying(false);
-                });
+        const audio = audioRef.current;
+
+        // Set volume to 30%
+        audio.volume = 0.3;
+
+        // Sync state with actual audio status
+        const onPlay = () => setIsPlaying(true);
+        const onPause = () => setIsPlaying(false);
+
+        audio.addEventListener("play", onPlay);
+        audio.addEventListener("pause", onPause);
+
+        // Initial sync
+        setIsPlaying(!audio.paused);
+
+        const tryPlay = async () => {
+            if (!audio || !audio.paused || isPausedByUser.current) return;
+            try {
+                await audio.play();
+            } catch (error) {
+                console.log(
+                    "Autoplay prevented, will retry on interaction/visibility",
+                    error
+                );
             }
-        }
+        };
+
+        // Try to play immediately
+        tryPlay();
+
+        // Try again when enough data is loaded
+        audio.addEventListener("loadeddata", tryPlay, { once: true });
+
+        // Also try on first user interaction (most reliable)
+        const handleFirstInteraction = () => {
+            setHasInteracted(true);
+            tryPlay();
+        };
+
+        document.addEventListener("mousedown", handleFirstInteraction, {
+            once: true,
+            passive: true,
+        });
+        document.addEventListener("keydown", handleFirstInteraction, {
+            once: true,
+            passive: true,
+        });
+        document.addEventListener("touchstart", handleFirstInteraction, {
+            once: true,
+            passive: true,
+        });
+
+        // Try when tab becomes visible again
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === "visible") {
+                tryPlay();
+            }
+        };
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        return () => {
+            audio.removeEventListener("play", onPlay);
+            audio.removeEventListener("pause", onPause);
+            audio.removeEventListener("loadeddata", tryPlay);
+            document.removeEventListener("mousedown", handleFirstInteraction);
+            document.removeEventListener("keydown", handleFirstInteraction);
+            document.removeEventListener("touchstart", handleFirstInteraction);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
     }, []);
 
-    const togglePlay = () => {
+    const togglePlay = async () => {
+        if (!audioRef.current) return;
         const audio = audioRef.current;
-        if (audio) {
-            if (isPlaying) {
+
+        try {
+            if (!audio.paused) {
                 audio.pause();
+                isPausedByUser.current = true;
             } else {
-                audio.play();
+                isPausedByUser.current = false;
+                await audio.play();
             }
-            setIsPlaying(!isPlaying);
+        } catch (err) {
+            console.error("Playback error:", err);
         }
     };
 
     return (
-        <div className="fixed bottom-10 right-10 z-50">
-            <audio
-                ref={audioRef}
-                loop
-                src={audioSrc}
-            />
+        <>
+            <audio ref={audioRef} loop preload="auto" playsInline>
+                <source src="/audio/public_audio_loop.mp3" type="audio/mpeg" />
+                Your browser does not support the audio element.
+            </audio>
 
-            <button
+            <motion.button
                 onClick={togglePlay}
-                className="bg-primary/80 hover:bg-primary text-primary-foreground p-3 rounded-full shadow-lg backdrop-blur-sm transition-all hover:scale-110"
-                aria-label={isPlaying ? "Pause background music" : "Play background music"}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-blue-500/30 bg-black/80 text-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.2)] backdrop-blur-md transition-all hover:border-blue-500 hover:bg-blue-950/30 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] group"
             >
-                {isPlaying ? (
-                    <Pause className="w-6 h-6" />
-                ) : (
-                    <Play className="w-6 h-6 ml-0.5" />
+                {/* Animated ring pulse */}
+                <div className="absolute inset-0 rounded-full border border-blue-500/20 opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity" />
+
+                {/* Orbiting particle */}
+                {isPlaying && (
+                    <motion.div
+                        className="absolute inset-0 rounded-full border-t border-blue-500/60"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    />
                 )}
-            </button>
-        </div>
+
+                <AnimatePresence mode="wait">
+                    {isPlaying ? (
+                        <motion.div
+                            key="pause"
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.5, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <FaPause className="text-xl" />
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="play"
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.5, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <FaPlay className="text-xl ml-1" />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Music notes animation when playing */}
+                <AnimatePresence>
+                    {isPlaying && (
+                        <>
+                            {[...Array(3)].map((_, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 0, x: 0, scale: 0.5 }}
+                                    animate={{
+                                        opacity: [0, 1, 0],
+                                        y: -40,
+                                        x: (i - 1) * 15,
+                                        scale: 1,
+                                    }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        delay: i * 0.6,
+                                        ease: "easeOut",
+                                    }}
+                                    className="absolute -top-2 text-blue-400 pointer-events-none"
+                                >
+                                    <FaMusic size={12} />
+                                </motion.div>
+                            ))}
+                        </>
+                    )}
+                </AnimatePresence>
+            </motion.button>
+        </>
     );
-}
+});
+
+BackgroundMusic.displayName = "BackgroundMusic";
+
+export default BackgroundMusic;
