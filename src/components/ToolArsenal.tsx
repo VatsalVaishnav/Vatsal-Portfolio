@@ -5,6 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiCpu } from "react-icons/fi";
 import { BsCursorFill } from "react-icons/bs";
 import { SiAnthropic, SiOpenai, SiGoogle } from "react-icons/si";
+import cursor from "../assets/image/cursor.svg";
+import claude from "../assets/image/claude.svg";
+import chatgpt from "../assets/image/chatgpt.svg";
+import gemini from "../assets/image/gemini.svg";
 
 const ToolArsenal = memo(() => {
     const [active, setActive] = useState<number | null>(null);
@@ -25,8 +29,8 @@ const ToolArsenal = memo(() => {
     const tools = [
         {
             name: "Cursor",
-            icon: BsCursorFill,
-            isImage: false,
+            icon: { cursor },
+            isImage: true,
             color: "text-white",
             label: "CODE_ENGINE",
             stats: { load: 100 },
@@ -34,8 +38,8 @@ const ToolArsenal = memo(() => {
         },
         {
             name: "Claude",
-            icon: SiAnthropic,
-            isImage: false,
+            icon: claude,
+            isImage: true,
             color: "text-[#D97757]",
             label: "EXEC_PLANNER",
             stats: { load: 95 },
@@ -43,8 +47,8 @@ const ToolArsenal = memo(() => {
         },
         {
             name: "ChatGPT",
-            icon: SiOpenai,
-            isImage: false,
+            icon: chatgpt,
+            isImage: true,
             color: "text-white",
             label: "CORE_TASKS",
             stats: { load: 85 },
@@ -52,8 +56,8 @@ const ToolArsenal = memo(() => {
         },
         {
             name: "Gemini",
-            icon: SiGoogle,
-            isImage: false,
+            icon: gemini,
+            isImage: true,
             color: "text-[#8E75FF]",
             label: "IMAGE_SYNTHESIS",
             stats: { load: 90 },
@@ -148,14 +152,14 @@ const ToolArsenal = memo(() => {
                         >
                             <motion.div
                                 className={`relative p-3 bg-black border-2 rounded-xl transition-all duration-300 ${active === i
-                                        ? "border-red-500 scale-125 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
-                                        : "border-red-900/50 scale-100"
+                                    ? "border-red-500 scale-125 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+                                    : "border-red-900/50 scale-100"
                                     }`}
                             >
                                 {tool.isImage ? (
                                     // Fallback if we ever use images again, but for now we are using components
                                     <img
-                                        src="" // Placeholder
+                                        src={tool.icon}
                                         alt={tool.name}
                                         className="w-8 h-8 object-contain"
                                     />
