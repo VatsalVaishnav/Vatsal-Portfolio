@@ -3,9 +3,8 @@
 import React, { useState, useRef, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiCpu } from "react-icons/fi";
-import { BsCursorFill } from "react-icons/bs";
-import { SiAnthropic, SiOpenai, SiGoogle } from "react-icons/si";
-import cursor from "../assets/image/cursor.svg";
+
+import cursorcursor from "../assets/image/cursor.svg";
 import claude from "../assets/image/claude.svg";
 import chatgpt from "../assets/image/chatgpt.svg";
 import gemini from "../assets/image/gemini.svg";
@@ -29,7 +28,7 @@ const ToolArsenal = memo(() => {
     const tools = [
         {
             name: "Cursor",
-            icon: { cursor },
+            icon: "../assets/image/cursor.svg",
             isImage: true,
             color: "text-white",
             label: "CODE_ENGINE",
@@ -68,7 +67,7 @@ const ToolArsenal = memo(() => {
     return (
         <div
             ref={containerRef}
-            className="relative w-full h-[450px] flex items-center justify-center rounded-sm overflow-hidden bg-black/20"
+            className="relative w-full h-[450px] flex items-center justify-center rounded-sm overflow-hidden "
         >
             {/* Background Radar / Scan Lines */}
             <div className="absolute inset-0 pointer-events-none">
@@ -159,7 +158,7 @@ const ToolArsenal = memo(() => {
                                 {tool.isImage ? (
                                     // Fallback if we ever use images again, but for now we are using components
                                     <img
-                                        src={tool.icon}
+                                        src={tool.icon.src}
                                         alt={tool.name}
                                         className="w-8 h-8 object-contain"
                                     />
