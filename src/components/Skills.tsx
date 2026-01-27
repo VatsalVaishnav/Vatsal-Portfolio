@@ -154,7 +154,7 @@ export default function Skills() {
               transition={{ delay: index * 0.08 }}
               className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur"
             >
-              <div className="absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-100">
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-300 opacity-100">
                 <div className="absolute inset-0 bg-linear-to-br from-primary/20 via-transparent to-secondary/20 blur-2xl" />
               </div>
               <div className="relative z-10 space-y-4">
