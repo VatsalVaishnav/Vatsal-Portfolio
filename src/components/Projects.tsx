@@ -75,8 +75,8 @@ export default function Projects() {
       <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-black/50">
         {/* Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-          <div className="absolute top-[20%] left-[10%] w-[30%] h-[30%] bg-primary/10 rounded-full blur-[100px]" />
-          <div className="absolute bottom-[20%] right-[10%] w-[30%] h-[30%] bg-secondary/10 rounded-full blur-[100px]" />
+          <div className="absolute top-[20%] left-[10%] w-[30%] h-[30%] bg-primary rounded-full blur-[100px]" />
+          <div className="absolute bottom-[20%] right-[10%] w-[30%] h-[30%] bg-secondary rounded-full blur-[100px]" />
         </div>
 
         <div className="absolute top-10 left-0 w-full text-center z-10">

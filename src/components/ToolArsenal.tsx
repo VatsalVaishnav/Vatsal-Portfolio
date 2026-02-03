@@ -28,7 +28,7 @@ const ToolArsenal = memo(() => {
     const tools = [
         {
             name: "Cursor",
-            icon: "../assets/image/cursor.svg",
+            icon: cursorcursor,
             isImage: true,
             color: "text-white",
             label: "CODE_ENGINE",
@@ -73,30 +73,30 @@ const ToolArsenal = memo(() => {
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(153,27,27,0.05)_0%,transparent_70%)]" />
                 <motion.div
-                    className="absolute inset-0 border-r border-red-500/10 origin-center"
+                    className="absolute inset-0 border-r border-blue-500/10 origin-center"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                 />
-                <div className="absolute top-1/2 left-0 w-full h-px bg-red-700/20" />
-                <div className="absolute left-1/2 top-0 w-px h-full bg-red-700/20" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-red-700/20 rounded-full" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-red-700/20 rounded-full" />
+                <div className="absolute top-1/2 left-0 w-full h-px bg-blue-700/20" />
+                <div className="absolute left-1/2 top-0 w-px h-full bg-blue-700/20" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-blue-700/20 rounded-full" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-blue-700/20 rounded-full" />
             </div>
 
             {/* Central Core */}
             <motion.div
-                className="relative z-10 w-16 h-16 bg-black border-2 border-red-600 flex items-center justify-center rounded-lg shadow-[0_0_20px_rgba(220,38,38,0.3)]"
+                className="relative z-10 w-16 h-16 bg-black border-2 border-blue-600 flex items-center justify-center rounded-lg shadow-[0_0_20px_rgba(59,130,246,0.3)]"
                 animate={{
                     boxShadow: [
-                        "0_0_20px_rgba(220,38,38,0.3)",
-                        "0_0_40px_rgba(220,38,38,0.5)",
-                        "0_0_20px_rgba(220,38,38,0.3)",
+                        "0_0_20px_rgba(59,130,246,0.3)",
+                        "0_0_40px_rgba(59,130,246,0.5)",
+                        "0_0_20px_rgba(59,130,246,0.3)",
                     ],
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
             >
-                <FiCpu className="text-3xl text-red-500 animate-pulse" />
-                <div className="absolute -bottom-6 text-[8px] font-mono text-red-500 tracking-[0.3em] font-bold">
+                <FiCpu className="text-3xl text-blue-500 animate-pulse" />
+                <div className="absolute -bottom-6 text-[8px] font-mono text-blue-500 tracking-[0.3em] font-bold">
                     SYSTEM_CORE
                 </div>
             </motion.div>
@@ -134,7 +134,7 @@ const ToolArsenal = memo(() => {
                                 x2={`calc(50% + ${x}px)`}
                                 y2={`calc(50% + ${y}px)`}
                                 stroke="currentColor"
-                                className="text-red-900/40"
+                                className="text-blue-900/40"
                                 strokeWidth="1"
                                 initial={{ pathLength: 0 }}
                                 animate={{ pathLength: 1 }}
@@ -151,8 +151,8 @@ const ToolArsenal = memo(() => {
                         >
                             <motion.div
                                 className={`relative p-3 bg-black border-2 rounded-xl transition-all duration-300 ${active === i
-                                    ? "border-red-500 scale-125 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
-                                    : "border-red-900/50 scale-100"
+                                    ? "border-blue-500 scale-125 shadow-[0_0_15px_rgba(59,130,246,0.4)]"
+                                    : "border-blue-900/50 scale-100"
                                     }`}
                             >
                                 {tool.isImage ? (
@@ -173,23 +173,23 @@ const ToolArsenal = memo(() => {
                                             initial={{ opacity: 0, x: isOnRight ? 10 : -10 }}
                                             animate={{ opacity: 1, x: isOnRight ? 20 : -20 }}
                                             exit={{ opacity: 0, x: isOnRight ? 10 : -10 }}
-                                            className={`absolute top-1/2 -translate-y-1/2 bg-red-950/90 border border-red-500 p-3 backdrop-blur-md min-w-[140px] rounded-sm z-50 ${isOnRight ? "left-full" : "right-full"
+                                            className={`absolute top-1/2 -translate-y-1/2 bg-blue-950/90 border border-blue-500 p-3 backdrop-blur-md min-w-[140px] rounded-sm z-50 ${isOnRight ? "left-full" : "right-full"
                                                 }`}
                                         >
-                                            <div className="text-[7px] font-mono text-red-400 tracking-tighter uppercase mb-1">
+                                            <div className="text-[7px] font-mono text-blue-400 tracking-tighter uppercase mb-1">
                                                 {tool.label}
                                             </div>
                                             <div className="text-[10px] font-bold text-white tracking-widest uppercase mb-2">
                                                 {tool.name}
                                             </div>
-                                            <div className="flex gap-1 h-1 bg-red-900/30 rounded-full overflow-hidden">
+                                            <div className="flex gap-1 h-1 bg-blue-900/30 rounded-full overflow-hidden">
                                                 <motion.div
-                                                    className="h-full bg-red-500"
+                                                    className="h-full bg-blue-500"
                                                     initial={{ width: 0 }}
                                                     animate={{ width: `${tool.stats.load}%` }}
                                                 />
                                             </div>
-                                            <div className="mt-1 text-[6px] font-mono text-red-500/80 flex justify-between">
+                                            <div className="mt-1 text-[6px] font-mono text-blue-500/80 flex justify-between">
                                                 <span>LOAD: {tool.stats.load}%</span>
                                                 <span>STABLE</span>
                                             </div>
