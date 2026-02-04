@@ -3,7 +3,6 @@
 import { useRef, useMemo, useState, FormEvent, ChangeEvent } from "react";
 import { motion, useInView } from "framer-motion";
 import { Mail, Github, Linkedin, Instagram, Phone, Send, User, MessageSquare, ArrowRight, MapPin, Loader2, CheckCircle2, XCircle } from "lucide-react";
-import emailjs from '@emailjs/browser';
 import Link from "next/link";
 import { DottedGlowBackground } from "@/components/ui/dotted-glow-background";
 
@@ -73,28 +72,18 @@ export default function Contact() {
     setStatus("loading");
     setErrorMessage("");
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-    if (!serviceId || !templateId || !publicKey) {
-      setErrorMessage("Email service not configured. Please check environment variables.");
-      setStatus("error");
-      return;
-    }
-
     try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: formState.name,
-          from_email: formState.email,
-          message: formState.message,
-          to_email: 'vatsalvaishnav0503@gmail.com',
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        publicKey
-      );
+        body: JSON.stringify(formState),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
 
       setStatus("success");
       setFormState({ name: "", email: "", message: "" });
@@ -102,7 +91,7 @@ export default function Contact() {
       // Reset success message after 5 seconds
       setTimeout(() => setStatus("idle"), 5000);
     } catch (error) {
-      console.error("EmailJS Error:", error);
+      console.error("Error sending message:", error);
       setErrorMessage("Failed to send message. Please try again later.");
       setStatus("error");
     }
@@ -362,10 +351,10 @@ export default function Contact() {
                   whileHover={{ scale: status === 'loading' || status === 'success' ? 1 : 1.02 }}
                   whileTap={{ scale: status === 'loading' || status === 'success' ? 1 : 0.98 }}
                   className={`w-full py-4 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center gap-2 group will-change-transform ${status === 'success'
-                      ? 'bg-green-500/20 text-green-400 border border-green-500/50 cursor-default shadow-[0_0_30px_rgba(34,197,94,0.2)]'
-                      : status === 'error'
-                        ? 'bg-red-500/20 text-red-400 border border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.2)]'
-                        : 'bg-linear-to-r from-primary to-secondary hover:from-blue-600 hover:to-pink-600 text-white shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]'
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/50 cursor-default shadow-[0_0_30px_rgba(34,197,94,0.2)]'
+                    : status === 'error'
+                      ? 'bg-red-500/20 text-red-400 border border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.2)]'
+                      : 'bg-linear-to-r from-primary to-secondary hover:from-blue-600 hover:to-pink-600 text-white shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)]'
                     }`}
                 >
                   {status === 'loading' ? (
