@@ -1,209 +1,89 @@
 "use client";
 
-import React, { useState, useRef, useEffect, memo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FiCpu } from "react-icons/fi";
+import React, { memo, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
-import cursorcursor from "../assets/image/cursor.svg";
-import claude from "../assets/image/claude.svg";
-import chatgpt from "../assets/image/chatgpt.svg";
-import gemini from "../assets/image/gemini.svg";
+import cursorIcon from "../assets/image/cursor.svg";
+import claudeIcon from "../assets/image/claude.svg";
+import chatgptIcon from "../assets/image/chatgpt.svg";
+import geminiIcon from "../assets/image/gemini.svg";
 
-const ToolArsenal = memo(() => {
-    const [active, setActive] = useState<number | null>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [containerWidth, setContainerWidth] = useState(800);
+const tools = [
+    { name: "Cursor", icon: cursorIcon, role: "CODE_ENGINE", color: "#3B82F6" },
+    { name: "Claude", icon: claudeIcon, role: "ARCH_PLANNER", color: "#D97757" },
+    { name: "ChatGPT", icon: chatgptIcon, role: "CORE_TASKS", color: "#10B981" },
+    { name: "Gemini", icon: geminiIcon, role: "IMAGE_SYNTHESIS", color: "#8B5CF6" },
+];
 
-    useEffect(() => {
-        if (!containerRef.current) return;
-        const observer = new ResizeObserver((entries) => {
-            for (let entry of entries) {
-                setContainerWidth(entry.contentRect.width);
-            }
-        });
-        observer.observe(containerRef.current);
-        return () => observer.disconnect();
-    }, []);
+function ToolIcon({ tool, mouseX }: { tool: typeof tools[0], mouseX: any }) {
+    const ref = useRef<HTMLDivElement>(null);
 
-    const tools = [
-        {
-            name: "Cursor",
-            icon: cursorcursor,
-            isImage: true,
-            color: "text-white",
-            label: "CODE_ENGINE",
-            stats: { load: 100 },
-            angle: -135,
-        },
-        {
-            name: "Claude",
-            icon: claude,
-            isImage: true,
-            color: "text-[#D97757]",
-            label: "EXEC_PLANNER",
-            stats: { load: 95 },
-            angle: -45,
-        },
-        {
-            name: "ChatGPT",
-            icon: chatgpt,
-            isImage: true,
-            color: "text-white",
-            label: "CORE_TASKS",
-            stats: { load: 85 },
-            angle: 45,
-        },
-        {
-            name: "Gemini",
-            icon: gemini,
-            isImage: true,
-            color: "text-[#8E75FF]",
-            label: "IMAGE_SYNTHESIS",
-            stats: { load: 90 },
-            angle: 135,
-        },
-    ];
+    const distance = useTransform(mouseX, (val: number) => {
+        const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+        return val - bounds.x - bounds.width / 2;
+    });
+
+    const widthSync = useTransform(distance, [-150, 0, 150], [48, 80, 48]);
+    const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
     return (
-        <div
-            ref={containerRef}
-            className="relative w-full h-[450px] flex items-center justify-center rounded-sm overflow-hidden "
+        <motion.div
+            ref={ref}
+            style={{ width }}
+            className="group relative aspect-square flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md transition-shadow duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
         >
-            {/* Background Radar / Scan Lines */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(153,27,27,0.05)_0%,transparent_70%)]" />
+            <div className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-20 blur-xl" style={{ backgroundColor: tool.color }} />
+
+            <Image
+                src={tool.icon}
+                alt={tool.name}
+                width={32}
+                height={32}
+                className="relative z-10 w-3/5 h-3/5 object-contain"
+            />
+
+            <AnimatePresence>
                 <motion.div
-                    className="absolute inset-0 border-r border-blue-500/10 origin-center"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                />
-                <div className="absolute top-1/2 left-0 w-full h-px bg-blue-700/20" />
-                <div className="absolute left-1/2 top-0 w-px h-full bg-blue-700/20" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-blue-700/20 rounded-full" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-blue-700/20 rounded-full" />
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    whileHover={{ opacity: 1, y: -50, scale: 1 }}
+                    className="pointer-events-none absolute -top-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                >
+                    <div className="whitespace-nowrap rounded-lg bg-black/80 border border-white/10 px-3 py-1.5 shadow-2xl backdrop-blur-md">
+                        <span className="block text-xs font-bold text-white tracking-wide uppercase">{tool.name}</span>
+                        <span className="block text-[8px] font-mono text-gray-500 tracking-widest leading-none mt-0.5">{tool.role}</span>
+                    </div>
+                    <div className="h-1.5 w-1.5 rotate-45 border-r border-b border-white/10 bg-black/80" />
+                </motion.div>
+            </AnimatePresence>
+        </motion.div>
+    );
+}
+
+const ToolArsenal = memo(() => {
+    const mouseX = useMotionValue(Infinity);
+
+    return (
+        <div className="w-full py-12 flex flex-col items-center gap-12">
+            <div className="text-center space-y-2">
+                <h3 className="text-lg font-medium text-white/90 tracking-tight">AI Stack</h3>
+                <p className="text-sm text-gray-500">Intelligent tools I use to build better products.</p>
             </div>
 
-            {/* Central Core */}
             <motion.div
-                className="relative z-10 w-16 h-16 bg-black border-2 border-blue-600 flex items-center justify-center rounded-lg shadow-[0_0_20px_rgba(59,130,246,0.3)]"
-                animate={{
-                    boxShadow: [
-                        "0_0_20px_rgba(59,130,246,0.3)",
-                        "0_0_40px_rgba(59,130,246,0.5)",
-                        "0_0_20px_rgba(59,130,246,0.3)",
-                    ],
-                }}
-                transition={{ duration: 2, repeat: Infinity }}
+                onMouseMove={(e) => mouseX.set(e.pageX)}
+                onMouseLeave={() => mouseX.set(Infinity)}
+                className="mx-auto flex h-20 items-end gap-4 rounded-3xl bg-black/20 border border-white/5 px-4 pb-3 backdrop-blur-2xl"
             >
-                <FiCpu className="text-3xl text-blue-500 animate-pulse" />
-                <div className="absolute -bottom-6 text-[8px] font-mono text-blue-500 tracking-[0.3em] font-bold">
-                    SYSTEM_CORE
-                </div>
+                {tools.map((tool) => (
+                    <ToolIcon key={tool.name} tool={tool} mouseX={mouseX} />
+                ))}
             </motion.div>
 
-            {/* Satellite Tools */}
-            {tools.map((tool, i) => {
-                const radius = 130;
-                const x = Math.cos((tool.angle * Math.PI) / 180) * radius;
-                const y = Math.sin((tool.angle * Math.PI) / 180) * radius;
-
-                // Smart positioning: Check if tooltip would overflow container edges
-                const tooltipWidth = 160; // Estimated max width
-                const iconCorrection = 25; // Offset from icon center
-                const spaceOnRight = containerWidth / 2 - (x + iconCorrection);
-                const spaceOnLeft = containerWidth / 2 + (x - iconCorrection);
-
-                let isOnRight = x >= 0;
-                if (isOnRight && spaceOnRight < tooltipWidth) {
-                    isOnRight = false; // Flip to left if not enough space on right
-                } else if (!isOnRight && spaceOnLeft < tooltipWidth) {
-                    isOnRight = true; // Flip to right if not enough space on left
-                }
-
-                return (
-                    <div
-                        key={tool.name}
-                        className={`absolute inset-0 flex items-center justify-center pointer-events-none ${active === i ? "z-50" : "z-20"
-                            }`}
-                    >
-                        {/* Connection Line */}
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-                            <motion.line
-                                x1="50%"
-                                y1="50%"
-                                x2={`calc(50% + ${x}px)`}
-                                y2={`calc(50% + ${y}px)`}
-                                stroke="currentColor"
-                                className="text-blue-900/40"
-                                strokeWidth="1"
-                                initial={{ pathLength: 0 }}
-                                animate={{ pathLength: 1 }}
-                                strokeDasharray="4 4"
-                            />
-                        </svg>
-
-                        {/* Satellite Node */}
-                        <motion.div
-                            style={{ x, y }}
-                            className="pointer-events-auto relative"
-                            onMouseEnter={() => setActive(i)}
-                            onMouseLeave={() => setActive(null)}
-                        >
-                            <motion.div
-                                className={`relative p-3 bg-black border-2 rounded-xl transition-all duration-300 ${active === i
-                                    ? "border-blue-500 scale-125 shadow-[0_0_15px_rgba(59,130,246,0.4)]"
-                                    : "border-blue-900/50 scale-100"
-                                    }`}
-                            >
-                                {tool.isImage ? (
-                                    // Fallback if we ever use images again, but for now we are using components
-                                    <img
-                                        src={tool.icon.src}
-                                        alt={tool.name}
-                                        className="w-8 h-8 object-contain"
-                                    />
-                                ) : (
-                                    <tool.icon className={`text-2xl ${tool.color}`} />
-                                )}
-
-                                {/* Satellite Hologram Label */}
-                                <AnimatePresence>
-                                    {active === i && (
-                                        <motion.div
-                                            initial={{ opacity: 0, x: isOnRight ? 10 : -10 }}
-                                            animate={{ opacity: 1, x: isOnRight ? 20 : -20 }}
-                                            exit={{ opacity: 0, x: isOnRight ? 10 : -10 }}
-                                            className={`absolute top-1/2 -translate-y-1/2 bg-blue-950/90 border border-blue-500 p-3 backdrop-blur-md min-w-[140px] rounded-sm z-50 ${isOnRight ? "left-full" : "right-full"
-                                                }`}
-                                        >
-                                            <div className="text-[7px] font-mono text-blue-400 tracking-tighter uppercase mb-1">
-                                                {tool.label}
-                                            </div>
-                                            <div className="text-[10px] font-bold text-white tracking-widest uppercase mb-2">
-                                                {tool.name}
-                                            </div>
-                                            <div className="flex gap-1 h-1 bg-blue-900/30 rounded-full overflow-hidden">
-                                                <motion.div
-                                                    className="h-full bg-blue-500"
-                                                    initial={{ width: 0 }}
-                                                    animate={{ width: `${tool.stats.load}%` }}
-                                                />
-                                            </div>
-                                            <div className="mt-1 text-[6px] font-mono text-blue-500/80 flex justify-between">
-                                                <span>LOAD: {tool.stats.load}%</span>
-                                                <span>STABLE</span>
-                                            </div>
-                                            {/* Technical Corners for Hologram */}
-                                            <div className="absolute top-0 left-0 w-1 h-1 border-t border-l border-white" />
-                                            <div className="absolute bottom-0 right-0 w-1 h-1 border-b border-r border-white" />
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </motion.div>
-                        </motion.div>
-                    </div>
-                );
-            })}
+            <div className="flex items-center gap-2 text-[10px] font-mono text-gray-700 tracking-[0.2em]">
+                <span className="w-1.5 h-1.5 bg-gray-800 rounded-full"></span>
+                MINIMAL_DOCK_ACTIVE
+            </div>
         </div>
     );
 });
