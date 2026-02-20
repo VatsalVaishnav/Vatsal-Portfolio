@@ -80,10 +80,10 @@ const ToolArsenal = memo(() => {
                 ))}
             </motion.div>
 
-            <div className="flex items-center gap-2 text-[10px] font-mono text-gray-700 tracking-[0.2em]">
+            {/* <div className="flex items-center gap-2 text-[10px] font-mono text-gray-700 tracking-[0.2em]">
                 <span className="w-1.5 h-1.5 bg-gray-800 rounded-full"></span>
                 MINIMAL_DOCK_ACTIVE
-            </div>
+            </div> */}
         </div>
     );
 });
