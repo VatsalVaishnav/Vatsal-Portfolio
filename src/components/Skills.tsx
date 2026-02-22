@@ -11,20 +11,25 @@ import typescriptLogo from "@/assets/image/Typescript_logo_2020.svg";
 import javascriptLogo from "@/assets/image/JavaScript-logo.png";
 import reduxLogo from "@/assets/image/redux.png";
 import githubLogo from "@/assets/image/github.png";
-
+import viteLogo from "@/assets/image/vite.png";
+import motiondev from "@/assets/image/motiondev.png";
+import shadcn from "@/assets/image/shadcn.png";
+import figma from "@/assets/image/figma.png";
+import vscode from "@/assets/image/vscode.png";
 type SkillItem = {
   name: string;
   icon?: string | StaticImageData;
 };
 
 const featuredSkills: SkillItem[] = [
-  { name: "React", icon: reactLogo },
-  { name: "Next.js", icon: nextLogo },
   { name: "Tailwind CSS", icon: tailwindLogo },
-  { name: "TypeScript", icon: typescriptLogo },
   { name: "JavaScript", icon: javascriptLogo },
+  { name: "Next.js", icon: nextLogo },
+  { name: "React", icon: reactLogo },
+  { name: "TypeScript", icon: typescriptLogo },
   { name: "Redux", icon: reduxLogo },
   { name: "GitHub", icon: githubLogo },
+  { name: "Figma", icon: figma },
 ];
 
 const skillCategories: {
@@ -38,7 +43,7 @@ const skillCategories: {
       skills: [
         { name: "React", icon: reactLogo },
         { name: "Next.js", icon: nextLogo },
-        { name: "Vue.js" },
+        { name: "Vite", icon: viteLogo },
       ],
     },
     {
@@ -46,9 +51,9 @@ const skillCategories: {
       caption: "Design tokens, motion, and polish",
       skills: [
         { name: "Tailwind CSS", icon: tailwindLogo },
-        { name: "CSS3" },
-        { name: "SASS" },
-        { name: "Framer Motion" },
+        { name: "shadcn/ui", icon: shadcn },
+        // { name: "SASS" },  
+        { name: "Motion ", icon: motiondev },
       ],
     },
     {
@@ -66,8 +71,8 @@ const skillCategories: {
       skills: [
         { name: "Redux", icon: reduxLogo },
         { name: "Git & GitHub", icon: githubLogo },
-        { name: "VS Code" },
-        { name: "Figma" },
+        { name: "VS Code", icon: vscode },
+        { name: "Figma", icon: figma },
       ],
     },
   ];
@@ -78,120 +83,129 @@ export default function Skills() {
     target: marqueeRef,
     offset: ["start end", "end start"],
   });
-  const scrollX = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+  const scrollX = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
 
   return (
-    <section id="skills" className="relative overflow-hidden py-24">
-      <div className="absolute inset-0 -z-10 opacity-70">
-        <div className="absolute top-[-15%] left-[-10%] h-64 w-64 rounded-full bg-primary/20 blur-[120px]" />
-        <div className="absolute bottom-[-15%] right-[-5%] h-72 w-72 rounded-full bg-secondary/25 blur-[140px]" />
+    <section id="skills" className="relative overflow-hidden py-32 bg-[#050505]">
+      {/* Dynamic Background Elements */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-[10%] left-[-5%] h-[500px] w-[500px] rounded-full bg-primary/20 blur-[150px] animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-5%] h-[600px] w-[600px] rounded-full bg-secondary/15 blur-[180px] animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)]" />
       </div>
 
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mx-auto max-w-3xl text-center"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mx-auto max-w-3xl text-center mb-20"
         >
           <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="inline-flex items-center rounded-full border border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-white/90 backdrop-blur-sm shadow-[0_4px_20px_rgba(255,255,255,0.1)] hover:border-white/30 hover:shadow-[0_6px_30px_rgba(255,255,255,0.15)] transition-all duration-300"
+            // whileHover={{ scale: 1.05 }}
+            className="inline-flex items-center w-fit rounded-full border border-primary/40 bg-primary/20 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-primary mb-6 shadow-[0_0_15px_rgba(59,130,246,0.4)]"
           >
-            Skills
+            Skill's
           </motion.span>
-          <h2 className="mt-6 text-3xl font-semibold text-white md:text-4xl lg:text-5xl">
-            A toolkit tuned for immersive, performant frontends.
+          <h2 className="text-4xl font-bold tracking-tight text-white md:text-6xl mb-8 leading-tight">
+            Crafting Digital <br />
+            <span className="bg-gradient-to-r from-primary via-purple-400 to-secondary bg-clip-text text-transparent animate-gradient">Masterpieces</span>
           </h2>
-          <p className="mt-4 text-lg text-white/70">
-            From product thinking to motion craft, these are the stacks I reach
-            for when building the same cinematic feel found across the hero and
-            about sections.
+          <p className="mx-auto max-w-2xl text-lg text-white/60 leading-relaxed md:text-xl">
+            Leveraging a powerful ecosystem of modern technologies to build immersive,
+            high-performance digital experiences with surgical precision.
           </p>
         </motion.div>
 
+        {/* Enhanced Marquee */}
         <div
           ref={marqueeRef}
-          className="mt-12 overflow-hidden rounded-2xl border border-white/10 bg-black/30 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur"
+          className="relative mt-20 group"
         >
-          <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-black/80 to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-black/80 to-transparent" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/60 backdrop-blur-2xl p-8 py-8 shadow-2xl">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-40 z-10 bg-gradient-to-r from-black via-black/50 to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-40 z-10 bg-gradient-to-l from-black via-black/50 to-transparent" />
+
             <motion.div
-              className="flex min-w-full gap-6"
+              className="flex gap-5 whitespace-nowrap"
               style={{ x: scrollX }}
             >
-              {[...featuredSkills, ...featuredSkills].map((skill, index) => (
-                <div
+              {[...featuredSkills, ...featuredSkills, ...featuredSkills].map((skill, index) => (
+                <motion.div
                   key={`${skill.name}-${index}`}
-                  className="flex min-w-[200px] items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white/80"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="flex flex-none items-center gap-5 rounded-2xl border border-white/10 bg-gradient-to-b from-white/10 to-transparent px-5 py-3 transition-all duration-300 hover:border-primary/50 hover:bg-white/5 shadow-lg group/item"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+                  <div className="relative flex h-14 w-14 items-center justify-center rounded-xl bg-black/50 p-3 shadow-inner group-hover/item:shadow-primary/20 transition-all">
+                    <div className="absolute inset-0 bg-primary/10 rounded-xl blur-md opacity-0 group-hover/item:opacity-100 transition-opacity" />
                     <Image
                       src={skill.icon || javascriptLogo}
                       alt={skill.name}
-                      className="h-6 w-6 object-contain"
+                      className="h-full w-full object-contain relative z-10"
                     />
-                  </span>
-                  <span className="text-sm font-medium">{skill.name}</span>
-                </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-lg font-bold text-white group-hover/item:text-primary transition-colors">{skill.name}</span>
+                    <span className="text-[10px] uppercase tracking-widest text-white/40 font-medium">Core Stack</span>
+                  </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {/* Skill Categories Grid */}
+        <div className="mt-32 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {skillCategories.map((category, index) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: index * 0.08 }}
-              className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
+              className="group relative h-full"
             >
-              <div className="absolute inset-0 opacity-0 transition-opacity duration-300 opacity-100">
-                <div className="absolute inset-0 bg-linear-to-br from-primary/20 via-transparent to-secondary/20 blur-2xl" />
-              </div>
-              <div className="relative z-10 space-y-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-white/50">
+              <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-br from-primary/50 to-secondary/50 blur opacity-0 transition group-hover:opacity-30" />
+              <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:border-white/20 hover:bg-white/[0.08]">
+
+                {/* Visual Accent */}
+                <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                  <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
+                </div>
+
+                <div className="mb-8">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 mb-3 group-hover:text-primary transition-colors">
                     {category.caption}
                   </p>
-                  <h3 className="mt-2 text-xl font-semibold text-white">
+                  <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors">
                     {category.title}
                   </h3>
                 </div>
-                <div className="flex flex-wrap gap-3">
+
+                <div className="mt-auto flex flex-wrap gap-3">
                   {category.skills.map((skill) => (
-                    <motion.span
+                    <motion.div
                       key={skill.name}
-                      whileHover={{ y: -3 }}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80 backdrop-blur"
+                      whileHover={{ scale: 1.05 }}
+                      className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-white/70 shadow-sm backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-white/10 hover:text-white"
                     >
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10">
+                      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-black/40 p-1">
                         {skill.icon ? (
                           <Image
                             src={skill.icon}
                             alt={skill.name}
-                            className="h-5 w-5 object-contain"
+                            className="h-full w-full object-contain"
                           />
                         ) : (
-                          <span className="text-xs font-semibold text-white/80">
-                            {skill.name
-                              .split(" ")
-                              .map((part) => part[0])
-                              .slice(0, 2)
-                              .join("")}
+                          <span className="text-[10px] font-bold text-primary">
+                            {skill.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
                           </span>
                         )}
-                      </span>
+                      </div>
                       {skill.name}
-                    </motion.span>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -202,3 +216,4 @@ export default function Skills() {
     </section>
   );
 }
+

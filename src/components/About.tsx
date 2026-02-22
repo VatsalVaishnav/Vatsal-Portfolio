@@ -105,7 +105,7 @@ export default function About() {
               whileHover={{ scale: 1.05 }}
               className="inline-flex items-center w-fit rounded-full border border-primary/40 bg-primary/20 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-primary mb-6 shadow-[0_0_15px_rgba(59,130,246,0.4)]"
             >
-              Background
+              About Me
             </motion.span>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight flex flex-wrap gap-x-[0.2em]">
               {"Building".split(" ").map((word, i) => (

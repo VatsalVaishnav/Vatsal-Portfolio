@@ -55,7 +55,7 @@ const floatingSkills = [
 ];
 
 export default function Hero() {
-    
+
     return (
         <section className="min-h-screen relative flex items-center justify-center overflow-hidden pt-20">
             <SparklesCore
@@ -66,7 +66,7 @@ export default function Hero() {
                 particleDensity={100}
                 className="w-full h-full absolute"
                 particleColor="#FFFFFF"
-            />                
+            />
 
 
             {/* Background Elements */}
@@ -81,7 +81,7 @@ export default function Hero() {
                     <motion.div
                         key={skill.alt}
                         className={`absolute ${skill.position}`}
-                        animate={{ 
+                        animate={{
                             y: [0, skill.drift, 0],
                         }}
                         transition={{
@@ -90,7 +90,7 @@ export default function Hero() {
                             ease: "easeInOut",
                         }}
                     >
-                        <motion.div 
+                        <motion.div
                             className="relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl border border-primary/40 bg-white/10 backdrop-blur-xl"
                             animate={{
                                 boxShadow: [
@@ -106,7 +106,7 @@ export default function Hero() {
                             }}
                         >
                             <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/40 to-secondary/40 opacity-30" />
-                            <motion.div 
+                            <motion.div
                                 className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/30 to-secondary/30 blur-sm"
                                 animate={{
                                     opacity: [0.3, 0.6, 0.3]
@@ -162,7 +162,7 @@ export default function Hero() {
 
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight">
                         Frontend{" "}
-                        <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-secondary">
+                        <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-secondary to-primary animate-text-shimmer">
                             Developer
                         </span>
                     </h1>
