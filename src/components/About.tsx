@@ -8,7 +8,7 @@ import { CardSpotlight } from "@/components/ui/card-spotlight";
 
 const stats = [
   { label: "Concept-to-launch cycles shipped", value: "45" },
-  { label: "Product launches & shipped features", value: "20+" },
+  { label: "Product launches & shipped features", value: "+15" },
   { label: "Avg. Lighthouse performance score", value: "95+" },
   { label: "Client & team satisfaction", value: "100%" },
 ];

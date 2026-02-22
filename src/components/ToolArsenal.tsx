@@ -64,7 +64,7 @@ const ToolArsenal = memo(() => {
     const mouseX = useMotionValue(Infinity);
 
     return (
-        <div className="w-full py-12 flex flex-col items-center gap-12">
+        <div className="w-full flex flex-col items-center gap-12">
             <div className="text-center space-y-2">
                 <h3 className="text-lg font-medium text-white/90 tracking-tight">AI Stack</h3>
                 <p className="text-sm text-gray-500">Intelligent tools I use to build better products.</p>
