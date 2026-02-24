@@ -14,12 +14,23 @@ interface Experience {
   logoImage?: string;
 }
 
+interface Education {
+  school: string;
+  degree: string;
+  duration: string;
+  location?: string;
+  grade?: string;
+  achievement?: string;
+  logoImage?: string;
+}
+
 interface Personal {
   photo: string;
 }
 
 interface ContentfulData {
   experiences: Experience[];
+  education: Education[];
   personal: Personal;
 }
 
@@ -63,6 +74,24 @@ const mockData: ContentfulData = {
       achievement:
         "Assisted in the development of the company's main product and maintained legacy code. Fixed 100+ bugs, improved code quality, and learned modern frameworks.",
       skills: ["JavaScript", "HTML5", "CSS3", "Git"],
+    },
+  ],
+  education: [
+    {
+      school: "Example University",
+      degree: "Bachelor of Technology in Computer Science",
+      duration: "2016 - 2020",
+      location: "City, Country",
+      grade: "8.5 CGPA",
+      achievement: "Graduated with Honors, consistent top performer in technical courses.",
+    },
+    {
+      school: "High School Name",
+      degree: "Secondary School Certificate",
+      duration: "2014 - 2016",
+      location: "City, Country",
+      grade: "90%",
+      achievement: "Secured top position in the district science fair.",
     },
   ],
   personal: {

@@ -7,6 +7,7 @@ import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import GitContribution from "@/components/GitContribution";
 import Certificates from "@/components/Certificates";
+import Education from "@/components/Education";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <Projects />
       <GitContribution />
       <Experience />
+      <Education />
       <Certificates />
       <Contact />
       <Footer />
