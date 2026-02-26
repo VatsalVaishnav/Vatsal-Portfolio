@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import PageLoader from "@/components/PageLoader";
 import BackgroundAudio from "@/components/BackgroundAudio";
 import { ContentfulProvider } from "@/context/ContentfulContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const inter = localFont({
+  src: "../assets/font/Inter/Inter-VariableFont_opsz,wght.ttf",
+  variable: "--font-inter",
+  weight: "100 900",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const sora = localFont({
+  src: "../assets/font/Sora/Sora-VariableFont_wght.ttf",
+  variable: "--font-sora",
+  weight: "100 800",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${sora.variable} ${inter.variable} antialiased`}
       >
         <ContentfulProvider>
           <PageLoader />
