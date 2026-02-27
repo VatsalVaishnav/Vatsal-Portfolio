@@ -88,10 +88,10 @@ export default function Skills() {
   return (
     <section id="skills" className="relative overflow-hidden py-32 bg-[#050505]">
       {/* Dynamic Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-[10%] left-[-5%] h-[500px] w-[500px] rounded-full bg-primary/20 blur-[150px] animate-pulse" />
-        <div className="absolute bottom-[10%] right-[-5%] h-[600px] w-[600px] rounded-full bg-secondary/15 blur-[180px] animate-pulse" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05)_0%,transparent_70%)]" />
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-[10%] left-[-5%] h-[400px] w-[400px] rounded-full bg-primary/15 blur-[100px] animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-5%] h-[500px] w-[500px] rounded-full bg-secondary/10 blur-[120px] animate-pulse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-full bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.03)_0%,transparent_70%)]" />
       </div>
 
       <div className="container mx-auto px-6">
@@ -123,8 +123,8 @@ export default function Skills() {
           ref={marqueeRef}
           className="relative mt-20 group"
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/60 backdrop-blur-2xl p-8 py-8 shadow-2xl">
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-secondary/50 rounded-[2rem] blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/60 backdrop-blur-md p-8 py-8 shadow-2xl will-change-transform">
             <div className="pointer-events-none absolute inset-y-0 left-0 w-40 z-10 bg-gradient-to-r from-black via-black/50 to-transparent" />
             <div className="pointer-events-none absolute inset-y-0 right-0 w-40 z-10 bg-gradient-to-l from-black via-black/50 to-transparent" />
 
@@ -167,8 +167,8 @@ export default function Skills() {
               transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
               className="group relative h-full"
             >
-              <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-br from-primary/50 to-secondary/50 blur opacity-0 transition group-hover:opacity-30" />
-              <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-500 hover:border-white/20 hover:bg-white/[0.08]">
+              <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-br from-primary/50 to-secondary/50 blur opacity-0 transition group-hover:opacity-20" />
+              <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/[0.08] will-change-gpu">
 
                 {/* Visual Accent */}
                 <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">

@@ -102,9 +102,9 @@ export default function Projects() {
     <section ref={targetRef} id="projects" className="relative h-[300vh]">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-black/50">
         {/* Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-          <div className="absolute top-[20%] left-[10%] w-[30%] h-[30%] bg-primary rounded-full blur-[100px]" />
-          <div className="absolute bottom-[20%] right-[10%] w-[30%] h-[30%] bg-secondary rounded-full blur-[100px]" />
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+          <div className="absolute top-[20%] left-[10%] w-[30%] h-[30%] bg-primary/20 rounded-full blur-[80px]" />
+          <div className="absolute bottom-[20%] right-[10%] w-[30%] h-[30%] bg-secondary/15 rounded-full blur-[80px]" />
         </div>
 
         <div className="absolute top-[80px] left-0 w-full text-center z-10">
@@ -127,12 +127,12 @@ export default function Projects() {
           </motion.div>
         </div>
 
-        <motion.div style={{ x }} className="flex gap-8 px-10 md:px-20 pt-[110px]">
+        <motion.div style={{ x }} className="flex gap-8 px-10 md:px-20 pt-[110px] will-change-transform">
           {projects.map((project) => (
             <div
               key={project.title}
               onClick={() => setSelectedProject(project)}
-              className="group flex flex-col h-[350px] w-[350px] md:h-[420px] md:w-[550px] shrink-0 overflow-hidden rounded-2xl glass hover:border-primary/50 transition-colors duration-500 cursor-pointer"
+              className="group flex flex-col h-[350px] w-[350px] md:h-[420px] md:w-[550px] shrink-0 overflow-hidden rounded-2xl glass hover:border-primary/50 transition-colors duration-500 cursor-pointer will-change-gpu"
             >
               <div className="relative h-3/4 w-full overflow-hidden">
                 <Image

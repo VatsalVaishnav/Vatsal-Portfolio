@@ -63,16 +63,16 @@ export default function Hero() {
                 background="transparent"
                 minSize={0.6}
                 maxSize={1.4}
-                particleDensity={100}
+                particleDensity={50}
                 className="w-full h-full absolute"
                 particleColor="#FFFFFF"
             />
 
 
             {/* Background Elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[100px]" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 rounded-full blur-[100px]" />
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+                <div className="absolute top-[-5%] left-[-5%] w-[30%] h-[30%] bg-primary/10 rounded-full blur-[80px]" />
+                <div className="absolute bottom-[-5%] right-[-5%] w-[30%] h-[30%] bg-secondary/10 rounded-full blur-[80px]" />
             </div>
 
             {/* Floating Skill Badges */}
@@ -80,7 +80,7 @@ export default function Hero() {
                 {floatingSkills.map((skill, index) => (
                     <motion.div
                         key={skill.alt}
-                        className={`absolute ${skill.position}`}
+                        className={`absolute ${skill.position} will-change-transform`}
                         animate={{
                             y: [0, skill.drift, 0],
                         }}
@@ -91,12 +91,12 @@ export default function Hero() {
                         }}
                     >
                         <motion.div
-                            className="relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl border border-primary/40 bg-white/10 backdrop-blur-xl"
+                            className="relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl border border-primary/40 bg-white/10 backdrop-blur-md will-change-gpu"
                             animate={{
                                 boxShadow: [
-                                    "0 0 20px rgba(59,130,246,0.4), 0 0 40px rgba(236,72,153,0.3), 0 10px 40px rgba(0,0,0,0.4)",
-                                    "0 0 30px rgba(59,130,246,0.6), 0 0 60px rgba(236,72,153,0.5), 0 10px 40px rgba(0,0,0,0.4)",
-                                    "0 0 20px rgba(59,130,246,0.4), 0 0 40px rgba(236,72,153,0.3), 0 10px 40px rgba(0,0,0,0.4)"
+                                    "0 0 20px rgba(59,130,246,0.3), 0 0 40px rgba(236,72,153,0.2), 0 10px 40px rgba(0,0,0,0.4)",
+                                    "0 0 25px rgba(59,130,246,0.4), 0 0 50px rgba(236,72,153,0.3), 0 10px 40px rgba(0,0,0,0.4)",
+                                    "0 0 20px rgba(59,130,246,0.3), 0 0 40px rgba(236,72,153,0.2), 0 10px 40px rgba(0,0,0,0.4)"
                                 ]
                             }}
                             transition={{
@@ -109,7 +109,7 @@ export default function Hero() {
                             <motion.div
                                 className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/30 to-secondary/30 blur-sm"
                                 animate={{
-                                    opacity: [0.3, 0.6, 0.3]
+                                    opacity: [0.3, 0.5, 0.3]
                                 }}
                                 transition={{
                                     duration: 2.5 + index * 0.15,
@@ -134,7 +134,7 @@ export default function Hero() {
                     transition={{ duration: 0.5 }}
                 >
                     <motion.div
-                        className="relative w-32 h-32 md:w-48 md:h-48 mx-auto mb-6 md:mb-8"
+                        className="relative w-32 h-32 md:w-48 md:h-48 mx-auto mb-6 md:mb-8 will-change-transform"
                         animate={{ y: [0, -10, 0] }}
                         transition={{
                             duration: 4,
@@ -146,11 +146,11 @@ export default function Hero() {
                             whileHover={{ scale: 1.05 }}
                             className="relative w-full h-full"
                         >
-                            <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary to-secondary blur-2xl opacity-30" />
+                            <div className="absolute inset-0 rounded-full bg-linear-to-r from-primary to-secondary blur-2xl opacity-20" />
                             <Image
                                 src={myimage}
                                 alt="Vatsal Vaishnav"
-                                className="relative w-full h-full rounded-full border-2 border-primary/30 object-cover shadow-2xl"
+                                className="relative w-full h-full rounded-full border-2 border-primary/30 object-cover shadow-2xl will-change-gpu"
                                 priority
                             />
                         </motion.div>
